@@ -1,74 +1,238 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<style>
-			body {
-				background-color: #ffffff;
-				margin: 0;
-				overflow: hidden;
-			}
-		</style>
-	</head>
-	<body>
-		
-		<script src="js/three.min.js"></script>
-		<script src="js/OrbitControls.js"></script>
-		<script>
 
-			
-			var camera, scene, renderer;
-			var geometry, material, mesh;
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      background-color: #ffffff;
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
 
-			function setup() {
+<body>
 
-				var W = window.innerWidth, H = window.innerHeight;
-				renderer = new THREE.WebGLRenderer({alpha: true});
-				renderer.setSize( W, H );
-				document.body.appendChild( renderer.domElement );
+  <script src="js/three.min.js"></script>
+  <script src="js/OrbitControls.js"></script>
+  <script src="js/lights.js"></script>
+  <script>
+    var camera, scene, renderer;
+    var geometry, material, mesh;
+    var group, wing1;
 
-				camera = new THREE.PerspectiveCamera( 50, W/H, 1, 10000 );
-				camera.position.z = 500;
+    function setup() {
 
-        // controls
-				controls = new THREE.OrbitControls( camera, renderer.domElement );
-				//controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
-				controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-				controls.dampingFactor = 0.85; // SENSIBILIDAD
-				controls.screenSpacePanning = false;
-				controls.minDistance = 100;
-				controls.maxDistance = 500;
-				controls.maxPolarAngle = Math.PI / 2;
+      var W = window.innerWidth,
+        H = window.innerHeight;
 
-				scene = new THREE.Scene();
-				
-        
-        /* -------------------------------- */
-        /* --------- SANBOX --------------- */
-        /* -------------------------------- */
-				geometry = new THREE.CubeGeometry(200, 200, 200);
-        material = new THREE.MeshNormalMaterial({shading: THREE.FlatShading});
-        mesh = new THREE.Mesh(geometry, material);
-        scene.add(mesh);
+      renderer = new THREE.WebGLRenderer({
+        alpha: true
+      });
+      renderer.setSize(W, H);
+      // Set a near white clear color (default is black)
+      renderer.setClearColor(0xfff6e6);
+
+      // Enable shadow mapping
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 
+      document.body.appendChild(renderer.domElement);
 
-			}
+      camera = new THREE.PerspectiveCamera(50, W / H, 0.1, 10000);
+      camera.position.z = 500;
 
-			function draw() {
+      // controls
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
+      controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+      controls.dampingFactor = 0.85; // SENSIBILIDAD
+      controls.screenSpacePanning = false;
+      controls.minDistance = 100;
+      controls.maxDistance = 500;
+      controls.maxPolarAngle = Math.PI / 2;
 
-				requestAnimationFrame( draw );
-        
-				controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+      scene = new THREE.Scene();
 
-				renderer.render( scene, camera );
+      var lights = new Lights(scene);
+      lights.addToScene();
 
-			}
 
-			setup();
-			draw();
 
-		</script>
-		
-	</body>
+      /* -------------------------------- */
+      /* --------- SANBOX --------------- */
+      /* -------------------------------- */
+      // geometry = new THREE.CubeGeometry(200, 200, 200);
+      // material = new THREE.MeshNormalMaterial({shading: THREE.FlatShading});
+      // mesh = new THREE.Mesh(geometry, material);
+      // scene.add(mesh);
+
+      group = new THREE.Object3D();
+
+
+      /* LIGHT */
+      // var light = new THREE.PointLight(0xff0000, 10, 150);
+      // light.position.set(50, 150, 50);
+      // scene.add(light);
+
+      groupHead = new THREE.Object3D();
+
+      /* BEAK */
+      var geometryBeak = new THREE.ConeBufferGeometry(25, 100, 32);
+      var materialBeak = new THREE.MeshPhongMaterial({
+        color: 0x212121,
+        flatShading: true
+      });
+      var beak = new THREE.Mesh(geometryBeak, materialBeak);
+      beak.position.y = 100;
+      beak.position.x = 30;
+      beak.rotation.z = THREE.Math.degToRad(-30);
+      groupHead.add(beak);
+
+
+      /* HEAD */
+      var geometryHead = new THREE.CylinderGeometry(30, 30, 50, 32);
+      var materialHead = new THREE.MeshPhongMaterial({
+        color: 0x212121,
+        flatShading: true
+      });
+      var head = new THREE.Mesh(geometryHead, materialHead);
+      head.castShadow = true;
+      head.receiveShadow = true;
+      head.position.y = 50;
+      head.rotation.x = Math.PI / 2;
+      groupHead.add(head);
+
+      /* EYE 1 */
+      var geometryEye1 = new THREE.CircleGeometry(20, 20);
+      var materialEye1 = new THREE.MeshBasicMaterial({
+        color: 0xffffff
+      });
+      var eye1 = new THREE.Mesh(geometryEye1, materialEye1);
+      eye1.position.z = 26;
+      eye1.position.y = 50;
+      groupHead.add(eye1);
+
+      /* EYE 2 */
+      var geometryEye2 = new THREE.CircleGeometry(20, 20);
+      var materialEye2 = new THREE.MeshBasicMaterial({
+        color: 0xffffff
+      });
+      var eye2 = new THREE.Mesh(geometryEye2, materialEye2);
+      eye2.material.side = THREE.DoubleSide; // to show all sides
+      eye2.position.z = -26;
+      eye2.position.y = 50;
+      groupHead.add(eye2);
+
+      /* EYE 1 BLACK*/
+      var geometryEye1Black = new THREE.CircleGeometry(15, 15);
+      var materialEye1Black = new THREE.MeshBasicMaterial({
+        color: 0x212121
+      });
+      var eye1Black = new THREE.Mesh(geometryEye1Black, materialEye1Black);
+      eye1Black.position.z = 27;
+      eye1Black.position.y = 50;
+      groupHead.add(eye1Black);
+
+      /* EYE 2 BLACK */
+      var geometryEye2Black = new THREE.CircleGeometry(15, 15);
+      var materialEye2Black = new THREE.MeshBasicMaterial({
+        color: 0x212121
+      });
+      var eye2Black = new THREE.Mesh(geometryEye2Black, materialEye2Black);
+      eye2Black.material.side = THREE.DoubleSide; // to show all sides
+      eye2Black.position.z = -27;
+      eye2Black.position.y = 50;
+      groupHead.add(eye2Black);
+
+      group.add(groupHead);
+
+
+      groupBody = new THREE.Object3D();
+
+      /* NECK */
+      var geometryNeck = new THREE.CylinderGeometry(10, 10, 50, 32, 5);
+      var materialNeck = new THREE.MeshPhongMaterial({
+        color: 0x212121,
+        flatShading: true
+      });
+      var neck = new THREE.Mesh(geometryNeck, materialNeck);
+      neck.castShadow = true;
+      neck.receiveShadow = true;
+      neck.rotation.z = THREE.Math.degToRad(25);
+      neck.position.x = 10;
+      neck.position.y = 10;
+      groupBody.add(neck);
+
+      /* BODY */
+      var geometryBody = new THREE.CylinderGeometry(10, 40, 100, 32, 5);
+      var materialBody = new THREE.MeshPhongMaterial({
+        color: 0x212121,
+        flatShading: true
+      });
+      var body = new THREE.Mesh(geometryBody, materialBody);
+      body.castShadow = true;
+      body.receiveShadow = true;
+      body.rotation.z = THREE.Math.degToRad(25);
+      body.position.y = -45;
+      body.position.x = 35;
+      groupBody.add(body);
+
+      group.add(groupBody);
+
+
+      /* WING 1 */
+      var geometryWing1 = new THREE.CircleGeometry(85, 32, 0, .8);
+      var materialWing1 = new THREE.MeshBasicMaterial({
+        color: 0x212121
+      });
+      wing1 = new THREE.Mesh(geometryWing1, materialWing1);
+      wing1.material.side = THREE.DoubleSide; // to show all sides
+      wing1.position.x = 10;
+      wing1.position.y = -10;
+      wing1.rotation.y = THREE.Math.degToRad(180);
+      wing1.rotation.x = THREE.Math.degToRad(180);
+      wing1.rotation.z = THREE.Math.degToRad(20);
+      group.add(wing1);
+
+      /*
+      var radians = THREE.Math.degToRad( degrees );
+      var degrees = THREE.Math.radToDeg( radians );
+      */
+
+      group.rotation.z = THREE.Math.degToRad(280);
+
+      scene.add(group);
+
+
+    }
+
+    function draw() {
+
+      // if (wing1.rotation.y > THREE.Math.degToRad(90) && wing1.rotation.y > THREE.Math.degToRad(30)) {
+      //   wing1.rotation.y -= .005;
+      //   console.log("resta")
+      // } else {
+      //   wing1.rotation.y += .005;
+      //   console.log("suma")
+      // }
+      
+      
+
+      requestAnimationFrame(draw);
+
+      //controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+
+      renderer.render(scene, camera);
+
+    }
+
+    setup();
+    draw();
+  </script>
+
+</body>
+
 </html>
