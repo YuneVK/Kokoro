@@ -176,3 +176,20 @@ Kokoro.prototype.moveWings = function() {
   wing1.rotation.y += this.flappingUp ?  this.velocity : -this.velocity;
   wing2.rotation.y += this.flappingUp ?  -this.velocity : this.velocity;
 }
+
+Kokoro.prototype.updatePosition = function(mousePos) {
+  var targetX = normalizePosition(mousePos.x, -1, 1, -120, 120);
+  var targetY = normalizePosition(mousePos.y, -1, 1, 15, 195);
+  
+  this.mesh.position.y = targetY;
+  this.mesh.position.x = targetX;
+
+  function normalizePosition(position,positionMin,positionMax,axisMin, axisMax){
+    var newPosition = Math.max(Math.min(position,positionMax), positionMin);
+    var distancePosition = positionMax-positionMin;
+    var pc = (newPosition-positionMin)/distancePosition;
+    var distanceAxis = axisMax-axisMin;
+    var positionAxis = axisMin + (pc*distanceAxis);
+    return positionAxis;
+  }
+}

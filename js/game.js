@@ -22,7 +22,7 @@ function Game() {
   
   // Listen to the screen: if the user resizes it
   // we have to update the camera and the renderer size
-  window.addEventListener('resize', this.handleWindowResize, false);
+  window.addEventListener('resize', this.handleWindowResize.bind(this), false);
   
   this.lights = new Lights(this.scene);
   this.lights.addToScene();
@@ -35,6 +35,10 @@ function Game() {
 
   this.kokoro = new Kokoro(this.scene);
   this.kokoro.addToScene();
+
+  // Mouse event
+  document.addEventListener('mousemove', this.handleMouseMove.bind(this), false);
+  this.mousePos={x:0, y:0};
   
   // start a loop that will update the objects' positions 
   // and render the scene on each frame
@@ -101,8 +105,9 @@ Game.prototype.handleWindowResize = function() {
 
 Game.prototype.loop = function () {
   this.kokoro.moveWings();
+  this.kokoro.updatePosition(this.mousePos);
+  
   this.ground.mesh.rotation.z += .005;
-  //this.sky.mesh.rotation.z += .01;
   this.sky.mesh.rotation.z += .001;
 
   // render the scene
@@ -110,4 +115,11 @@ Game.prototype.loop = function () {
 
   // call the loop function again
   requestAnimationFrame(this.loop.bind(this));
+}
+
+Game.prototype.handleMouseMove = function(event) {
+  var directionX = -1 + (event.clientX / this.WIDTH)*2;
+	var directionY = 1 - (event.clientY / this.HEIGHT)*2;
+
+  this.mousePos = {x:directionX, y:directionY};
 }
