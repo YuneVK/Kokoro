@@ -109,6 +109,8 @@ Game.prototype.handleWindowResize = function() {
 Game.prototype.loop = function () {
   this.kokoro.moveWings();
   this.kokoro.updatePosition(this.mousePos);
+
+  this.enemy.draw();
   
   this.ground.mesh.rotation.z += .005;
   this.sky.mesh.rotation.z += .001;
