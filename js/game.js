@@ -63,8 +63,7 @@ function Game() {
     y: 0
   };
 
-  this.timeCounter = 0;
-  this.timeForNextEnemy = 300;
+  this.score = 0;
 
   // start a loop that will update the objects' positions 
   // and render the scene on each frame
@@ -144,7 +143,9 @@ Game.prototype.loop = function () {
   // render the scene
   this.renderer.render(this.scene, this.camera);
 
-  
+  this.updateScore();
+
+  this.checkCollision();
 
   // call the loop function again
   requestAnimationFrame(this.loop.bind(this));
@@ -168,4 +169,25 @@ Game.prototype.generateEnemies = function() {
     this.enemies.push(new Enemy(this.scene, this.ground, finalAngle));
     this.enemies[i].addToScene();
   }
+}
+
+Game.prototype.updateScore = function() {
+  this.score += .1;
+  document.querySelector('div.info p span').innerHTML = Math.floor(this.score);
+}
+
+Game.prototype.checkCollision = function() {
+  this.enemies.forEach(function(enemy) {
+    var enemyPos =  enemy.mesh.localToWorld(new THREE.Vector3());
+    var kokoroPos = this.kokoro.mesh.position;
+
+    var diffX = Math.abs(kokoroPos.x - enemyPos.x);
+    var diffY = Math.abs(kokoroPos.y - enemyPos.y);
+
+    if (diffX < 30 && diffY < 30) {
+      console.log("colisión")
+    }
+  }.bind(this))
+
+    
 }

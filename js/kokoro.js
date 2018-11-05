@@ -4,6 +4,8 @@ function Kokoro(scene) {
   this.generateModel();
   this.mesh.scale.set(.15,.15,.15);
   this.mesh.position.y = 100;
+
+  this.box = new THREE.Box3().setFromObject( this.mesh );
   
   this.scene = scene;
 
@@ -11,7 +13,9 @@ function Kokoro(scene) {
   this.flappingUp = true;
   this.initialRotationZ = THREE.Math.degToRad(280);
 	
-	this.addToScene();
+  this.addToScene();
+  
+
 };
 
 Kokoro.prototype.generateModel = function() {
