@@ -7,8 +7,9 @@ function Kokoro(scene) {
   
   this.scene = scene;
 
-  this.velocity = .05;
+  this.velocity = .1;
   this.flappingUp = true;
+  this.initialRotationZ = THREE.Math.degToRad(280);
 	
 	this.addToScene();
 };
@@ -101,7 +102,7 @@ Kokoro.prototype.generateModel = function() {
   var neck = new THREE.Mesh(geometryNeck, materialNeck);
   neck.castShadow = true;
   neck.receiveShadow = true;
-  neck.rotation.z = THREE.Math.degToRad(25);
+  neck.rotation.z = this.initialRotationZ;
   neck.position.x = 10;
   neck.position.y = 10;
   groupBody.add(neck);
@@ -157,10 +158,10 @@ Kokoro.prototype.generateModel = function() {
   */
 
   this.mesh.rotation.z = THREE.Math.degToRad(280);
-
 }
 
 Kokoro.prototype.addToScene = function() {
+  this.mesh.scale.set(.15,.15,.15);
   this.scene.add(this.mesh);
 }
 
@@ -178,11 +179,16 @@ Kokoro.prototype.moveWings = function() {
 }
 
 Kokoro.prototype.updatePosition = function(mousePos) {
-  var targetX = normalizePosition(mousePos.x, -1, 1, -120, 120);
-  var targetY = normalizePosition(mousePos.y, -1, 1, 15, 195);
+  var remainingX = normalizePosition(mousePos.x, -1, 1, -120, 120);
+  var remainingY = normalizePosition(mousePos.y, -1, 1, 15, 195);
   
-  this.mesh.position.y = targetY;
-  this.mesh.position.x = targetX;
+  // Move at each frame by adding a fraction of the remaining distance
+  this.mesh.position.y += (remainingY-this.mesh.position.y)*.1;
+  this.mesh.position.x = remainingX;
+
+  this.mesh.rotation.z = this.initialRotationZ + ((remainingY-this.mesh.position.y) * .0128);
+
+  this.mesh.rotation.y = (remainingY-this.mesh.position.y) * .001;
 
   function normalizePosition(position,positionMin,positionMax,axisMin, axisMax){
     var newPosition = Math.max(Math.min(position,positionMax), positionMin);
