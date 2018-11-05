@@ -100,8 +100,7 @@ Game.prototype.handleWindowResize = function() {
 }
 
 Game.prototype.loop = function () {
-  // Rotate the kokoro, the sea and the sky
-  //this.kokoro.propeller.rotation.x += 0.3;
+  this.kokoro.moveWings();
   this.ground.mesh.rotation.z += .005;
   //this.sky.mesh.rotation.z += .01;
   this.sky.mesh.rotation.z += .001;

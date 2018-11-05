@@ -6,6 +6,9 @@ function Kokoro(scene) {
   this.mesh.position.y = 100;
   
   this.scene = scene;
+
+  this.velocity = .05;
+  this.flappingUp = true;
 	
 	this.addToScene();
 };
@@ -159,4 +162,17 @@ Kokoro.prototype.generateModel = function() {
 
 Kokoro.prototype.addToScene = function() {
   this.scene.add(this.mesh);
+}
+
+Kokoro.prototype.moveWings = function() {
+  var angleWing1 = Math.floor(THREE.Math.radToDeg(wing1.rotation.y));
+
+  if (angleWing1 >= 150) {
+    this.flappingUp = false;
+  } else if (angleWing1 <= 90) {
+    this.flappingUp = true;
+  }
+
+  wing1.rotation.y += this.flappingUp ?  this.velocity : -this.velocity;
+  wing2.rotation.y += this.flappingUp ?  -this.velocity : this.velocity;
 }

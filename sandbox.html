@@ -221,10 +221,30 @@
 
       scene.add(group);
 
+      counter = 0;
+      velocity = .005;
+      velocityIncr = .001;
+
+      flappingUp = true;
+
 
     }
 
     function draw() {
+      var angleWing1 = Math.floor(THREE.Math.radToDeg(wing1.rotation.y));
+      var angleWing2 = Math.floor(THREE.Math.radToDeg(wing1.rotation.y));
+
+      if (angleWing1 >= 150) {
+        flappingUp = false;
+      } else if (angleWing1 <= 90) {
+        flappingUp = true;
+      }
+
+      wing1.rotation.y += flappingUp ?  .05 : -.05;
+      wing2.rotation.y += flappingUp ?  -.05 : .05;
+      
+
+
 
       // if (wing1.rotation.y > THREE.Math.degToRad(90) && wing1.rotation.y > THREE.Math.degToRad(30)) {
       //   wing1.rotation.y -= .005;
