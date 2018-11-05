@@ -56,6 +56,7 @@ function Game() {
   this.generateEnemies();
 
 
+
   // Mouse event
   document.addEventListener('mousemove', this.handleMouseMove.bind(this), false);
   this.mousePos = {
@@ -130,7 +131,9 @@ Game.prototype.handleWindowResize = function () {
 
 Game.prototype.loop = function () {
   this.kokoro.moveWings();
+
   this.kokoro.updatePosition(this.mousePos);
+
 
 
   this.enemies.forEach(function (enemy) {
@@ -143,12 +146,28 @@ Game.prototype.loop = function () {
   // render the scene
   this.renderer.render(this.scene, this.camera);
 
+  
+  
+  if (this.kokoro.colisioned) {
+    this.kokoro.counterColisioned++;
+    
+    if (this.kokoro.counterColisioned % this.kokoro.timeColisioned === 0) {
+      this.kokoro.colisioned = false;
+      this.kokoro.counterColisioned = 0;
+    }
+  } else {
+    this.checkCollision();
+  }
+  
   this.updateScore();
-
-  this.checkCollision();
-
+  this.updateLife();
+  
   // call the loop function again
-  requestAnimationFrame(this.loop.bind(this));
+  if (this.kokoro.lives > 0) {
+    requestAnimationFrame(this.loop.bind(this));
+  } else {
+    this.gameOver();
+  }
 }
 
 Game.prototype.handleMouseMove = function (event) {
@@ -176,6 +195,17 @@ Game.prototype.updateScore = function() {
   document.querySelector('div.info p span').innerHTML = Math.floor(this.score);
 }
 
+Game.prototype.updateLife = function() {
+  var dom = document.querySelector('div.life');
+  var htmlResult = "";
+
+  for (var i = 1; i <= this.kokoro.lives; i++) {
+    htmlResult += "<span>X</span>";
+  }
+
+  dom.innerHTML = htmlResult;
+}
+
 Game.prototype.checkCollision = function() {
   this.enemies.forEach(function(enemy) {
     var enemyPos =  enemy.mesh.localToWorld(new THREE.Vector3());
@@ -184,10 +214,21 @@ Game.prototype.checkCollision = function() {
     var diffX = Math.abs(kokoroPos.x - enemyPos.x);
     var diffY = Math.abs(kokoroPos.y - enemyPos.y);
 
-    if (diffX < 30 && diffY < 30) {
+    if (diffX < 20 && diffY < 20) {
       console.log("colisión")
+      this.kokoro.colisioned = true;
+      this.kokoro.lives--;
     }
   }.bind(this))
 
     
+}
+
+
+Game.prototype.gameOver = function() {
+  alert("fin!")
+}
+
+Game.prototype.reload = function() {
+
 }

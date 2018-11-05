@@ -14,7 +14,12 @@ function Kokoro(scene) {
   this.initialRotationZ = THREE.Math.degToRad(280);
 	
   this.addToScene();
+
+  this.colisioned = false;
+  this.counterColisioned = 0;
+  this.timeColisioned = 50;
   
+  this.lives = 3;
 
 };
 
