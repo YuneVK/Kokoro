@@ -129,10 +129,24 @@ Kokoro.prototype.generateModel = function() {
   wing1.material.side = THREE.DoubleSide; // to show all sides
   wing1.position.x = 10;
   wing1.position.y = -10;
-  wing1.rotation.y = THREE.Math.degToRad(180);
+  wing1.rotation.y = THREE.Math.degToRad(100);
   wing1.rotation.x = THREE.Math.degToRad(180);
   wing1.rotation.z = THREE.Math.degToRad(20);
   this.mesh.add(wing1);
+
+  /* WING 2 */
+  var geometryWing2 = new THREE.CircleGeometry(85, 32, 0, .8);
+  var materialWing2 = new THREE.MeshBasicMaterial({
+    color: 0x212121
+  });
+  wing2 = new THREE.Mesh(geometryWing2, materialWing2);
+  wing2.material.side = THREE.DoubleSide; // to show all sides
+  wing2.position.x = 10;
+  wing2.position.y = -10;
+  wing2.rotation.y = THREE.Math.degToRad(270);
+  wing2.rotation.x = THREE.Math.degToRad(180);
+  wing2.rotation.z = THREE.Math.degToRad(20);
+  this.mesh.add(wing2);
 
   /*
   var radians = THREE.Math.degToRad( degrees );
