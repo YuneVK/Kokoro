@@ -36,6 +36,9 @@ function Game() {
   this.kokoro = new Kokoro(this.scene);
   this.kokoro.addToScene();
 
+  this.enemy = new Enemy(this.scene);
+  this.enemy.addToScene();
+
   // Mouse event
   document.addEventListener('mousemove', this.handleMouseMove.bind(this), false);
   this.mousePos={x:0, y:0};
@@ -109,6 +112,8 @@ Game.prototype.loop = function () {
   
   this.ground.mesh.rotation.z += .005;
   this.sky.mesh.rotation.z += .001;
+
+  //this.enemy.sphere.position.x += 1;
 
   // render the scene
   this.renderer.render(this.scene, this.camera);

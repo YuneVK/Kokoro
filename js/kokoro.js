@@ -2,7 +2,7 @@ function Kokoro(scene) {
   this.propeller = null;
   this.mesh = new THREE.Object3D();
   this.generateModel();
-  this.mesh.scale.set(.25,.25,.25);
+  this.mesh.scale.set(.15,.15,.15);
   this.mesh.position.y = 100;
   
   this.scene = scene;
@@ -161,7 +161,7 @@ Kokoro.prototype.generateModel = function() {
 }
 
 Kokoro.prototype.addToScene = function() {
-  this.mesh.scale.set(.15,.15,.15);
+  
   this.scene.add(this.mesh);
 }
 
