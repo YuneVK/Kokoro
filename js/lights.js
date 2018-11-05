@@ -12,7 +12,7 @@ Lights.prototype.createHemisphereLight = function() {
   // A hemisphere light is a gradient colored light; 
 	// the first parameter is the sky color, the second parameter is the ground color, 
 	// the third parameter is the intensity of the light
-	this.hemisphereLight = new THREE.HemisphereLight(0xaaaaaa,0xffffff, .9);
+	this.hemisphereLight = new THREE.HemisphereLight(0xaaaaaa,0xffffff, .2);
 }
 
 Lights.prototype.createShadowLight = function() {
