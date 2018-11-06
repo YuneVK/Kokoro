@@ -19,7 +19,8 @@ let GameConfig = {
     enemies: {
       sphere: new THREE.MeshPhongMaterial({color: 0x34495E,transparent: true,opacity: 01,needsUpdate: true}),
       ball: new THREE.MeshPhongMaterial({color: 0xff0000})
-    }
+    }, 
+    ground: new THREE.MeshPhongMaterial({color: 0x68c3c0,transparent:true,opacity:.6,flatShading:true,})
   }, 
 
   geometries: {
@@ -45,8 +46,7 @@ let GameConfig = {
         bigger: new THREE.SphereGeometry(60, 32, 32, 0, 6.3, 1.7, .25)
       }, 
       ball: new THREE.SphereGeometry(10, 32, 32)
-    }
+    }, 
+    ground: new THREE.CylinderGeometry(600,600,800,40,10)
   }
-
 }
-

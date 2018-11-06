@@ -2,7 +2,6 @@ let Game = {
   kokoro: null,
   enemies: [],
 
-
   init: function() {
     Stage.createScenary();
     Stage.createWorld();
@@ -10,11 +9,9 @@ let Game = {
     this.kokoro = new Kokoro(Stage.scene);
     this.kokoro.addToScene();
 
-
     this.enemies = Stage.generateEnemies();
 
     this.render();
-
   }, 
 
   render: function() {
@@ -40,10 +37,8 @@ let Game = {
     
     Stage.updateDOMInfo();
   
-    // render the scene
     Stage.renderer.render(Stage.scene, Stage.camera);
     
-    // call the loop function again
     if (this.kokoro.lives > 0) {
       requestAnimationFrame(this.render.bind(this));
     } else {
@@ -70,7 +65,6 @@ let Game = {
   gameOver: function() {
     this.kokoro.updatePosition(Stage.mousePos);
 
-    // render the scene
     Stage.renderer.render(Stage.scene, Stage.camera);
   
     requestAnimationFrame(this.gameOver.bind(this));

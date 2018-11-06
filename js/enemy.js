@@ -8,10 +8,6 @@ function Enemy(scene, ground, finalAngle) {
   this.ground = ground;
 }
 
-Enemy.prototype.generateModel = function () {
-  
-}
-
 Enemy.prototype.setPosition = function (finalAngle) {
   this.model.mesh.scale.set(.2, .2, .2);
   var distanceFromCenter = 650 + Math.random()*200;
@@ -22,7 +18,6 @@ Enemy.prototype.setPosition = function (finalAngle) {
 
 Enemy.prototype.addToScene = function () {
   this.ground.mesh.add(this.model.mesh);
-
 }
 
 Enemy.prototype.draw = function () {
