@@ -1,6 +1,10 @@
 function Kokoro(scene) {
   this.propeller = null;
   this.mesh = new THREE.Object3D();
+  this.pupile1 = null;
+  this.pupile2 = null;
+  this.pupile1Crossed = new THREE.Object3D();
+  this.pupile2Crossed = new THREE.Object3D();
   this.generateModel();
   this.mesh.scale.set(.15, .15, .15);
   this.mesh.position.y = 100;
@@ -19,7 +23,7 @@ function Kokoro(scene) {
   this.counterColisioned = 0;
   this.timeColisioned = 30;
 
-  this.lives = 20;
+  this.lives = 5;
 
 };
 
@@ -73,20 +77,51 @@ Kokoro.prototype.generateModel = function () {
   eye2.position.y = 50;
   groupHead.add(eye2);
 
-  /* EYE 1 BLACK*/
-  var geometryEye1Black = new THREE.CircleGeometry(15, 15);
-  var eye1Black = new THREE.Mesh(geometryEye1Black, eyeBlackMaterial);
-  eye1Black.position.z = 27;
-  eye1Black.position.y = 50;
-  groupHead.add(eye1Black);
+  /* PUPILES */
+  var geometryPupile1 = new THREE.CircleGeometry(15, 15);
+  this.pupile1 = new THREE.Mesh(geometryPupile1, eyeBlackMaterial);
+  this.pupile1.position.z = 27;
+  this.pupile1.position.y = 50;
+  groupHead.add(this.pupile1);
 
-  /* EYE 2 BLACK */
-  var geometryEye2Black = new THREE.CircleGeometry(15, 15);
-  var eye2Black = new THREE.Mesh(geometryEye2Black, eyeBlackMaterial);
-  eye2Black.material.side = THREE.DoubleSide; // to show all sides
-  eye2Black.position.z = -27;
-  eye2Black.position.y = 50;
-  groupHead.add(eye2Black);
+  var geometryPupile2 = new THREE.CircleGeometry(15, 15);
+  this.pupile2 = new THREE.Mesh(geometryPupile2, eyeBlackMaterial);
+  this.pupile2.material.side = THREE.DoubleSide; // to show all sides
+  this.pupile2.position.z = -27;
+  this.pupile2.position.y = 50;
+  groupHead.add(this.pupile2);
+
+  /* PUPILES CROSSED */
+  var geometryCrossPupile = new THREE.PlaneGeometry(5, 32);
+  var materialCrossPupile = new THREE.MeshBasicMaterial({
+    color: 0x212121
+  });
+  var crossPupile1 = new THREE.Mesh(geometryCrossPupile, materialCrossPupile);
+  crossPupile1.position.z = 27;
+  crossPupile1.position.y = 50;
+  crossPupile1.rotation.z = THREE.Math.degToRad(210);
+
+  var crossPupile1Copy = crossPupile1.clone();
+  crossPupile1Copy.rotation.z = THREE.Math.degToRad(310);
+
+  this.pupile1Crossed.add(crossPupile1);
+  this.pupile1Crossed.add(crossPupile1Copy);
+
+  groupHead.add(this.pupile1Crossed);
+
+  var crossPupile2 = new THREE.Mesh(geometryCrossPupile, materialCrossPupile);
+  crossPupile2.position.z = -27;
+  crossPupile2.position.y = 50;
+  crossPupile2.rotation.z = THREE.Math.degToRad(210);
+
+  var crossPupile2Copy = crossPupile1.clone();
+  crossPupile2Copy.rotation.z = THREE.Math.degToRad(310);
+
+  this.pupile2Crossed.add(crossPupile2);
+  this.pupile2Crossed.add(crossPupile2Copy);
+
+  groupHead.add(this.pupile2Crossed);
+
 
   this.mesh.add(groupHead);
 
@@ -173,24 +208,19 @@ Kokoro.prototype.updatePosition = function (mousePos) {
     this.mesh.position.y += (remainingY - this.mesh.position.y) * .1;
     
     if (this.isColisioned) {
-      //this.mesh.rotation.z -= THREE.Math.degToRad(1);
       this.mesh.position.x += .5;
       this.mesh.rotation.z += THREE.Math.degToRad(1);
-      //this.mesh.rotation.z += .04;
       
     } else {
       this.mesh.rotation.y = (remainingY - this.mesh.position.y) * .001;
       this.mesh.position.x = remainingX;
       this.mesh.rotation.z = this.initialRotationZ + ((remainingY - this.mesh.position.y) * .0128);
-      
-      
     }
   } else {
     this.mesh.position.y -= 2;
     this.mesh.rotation.z += THREE.Math.degToRad(3);
     this.mesh.rotation.y += THREE.Math.degToRad(3);
     this.mesh.rotation.z += THREE.Math.degToRad(3);
-    //this.mesh.position.x -= 5;
   }
 
   function normalizePosition(position, positionMin, positionMax, axisMin, axisMax) {
@@ -208,4 +238,14 @@ Kokoro.prototype.collisioned = function() {
   this.mesh.rotation.y -= THREE.Math.degToRad(30);
   //this.mesh.rotation.z += THREE.Math.degToRad(50);
   this.mesh.position.x -= 10;
+  this.checkPupiles();
+}
+
+Kokoro.prototype.checkPupiles = function() {
+  var colisioned = this.isColisioned;
+  
+  this.pupile1.visible = !colisioned;
+  this.pupile2.visible = !colisioned;
+  this.pupile1Crossed.visible = colisioned;
+  this.pupile2Crossed.visible = colisioned;
 }

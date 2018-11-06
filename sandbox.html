@@ -127,25 +127,54 @@
       groupHead.add(eye2);
 
       /* EYE 1 BLACK*/
-      var geometryEye1Black = new THREE.CircleGeometry(15, 15);
+      // var geometryEye1Black = new THREE.CircleGeometry(15, 15);
+      // var materialEye1Black = new THREE.MeshBasicMaterial({
+      //   color: 0x212121
+      // });
+      // var eye1Black = new THREE.Mesh(geometryEye1Black, materialEye1Black);
+      // eye1Black.position.z = 27;
+      // eye1Black.position.y = 50;
+      // groupHead.add(eye1Black);
+
+      /* EYE 2 BLACK */
+      // var geometryEye2Black = new THREE.CircleGeometry(15, 15);
+      // var materialEye2Black = new THREE.MeshBasicMaterial({
+      //   color: 0x212121
+      // });
+      // var eye2Black = new THREE.Mesh(geometryEye2Black, materialEye2Black);
+      // eye2Black.material.side = THREE.DoubleSide; // to show all sides
+      // eye2Black.position.z = -27;
+      // eye2Black.position.y = 50;
+      // groupHead.add(eye2Black);
+
+      /* CROSS PUPILE 1 */
+      var geometryEye1Black = new THREE.PlaneGeometry(5, 32);
       var materialEye1Black = new THREE.MeshBasicMaterial({
         color: 0x212121
       });
-      var eye1Black = new THREE.Mesh(geometryEye1Black, materialEye1Black);
-      eye1Black.position.z = 27;
-      eye1Black.position.y = 50;
-      groupHead.add(eye1Black);
+      var crossPupile1 = new THREE.Mesh(geometryEye1Black, materialEye1Black);
+      crossPupile1.position.z = 27;
+      crossPupile1.position.y = 50;
+      crossPupile1.rotation.z = THREE.Math.degToRad(210);
+      groupHead.add(crossPupile1);
 
-      /* EYE 2 BLACK */
+      var crossPupile1Copy = crossPupile1.clone();
+      crossPupile1Copy.rotation.z = THREE.Math.degToRad(310);
+
+      groupHead.add(crossPupile1Copy)
+
+      /* CROSS PUPILE */
       var geometryEye2Black = new THREE.CircleGeometry(15, 15);
       var materialEye2Black = new THREE.MeshBasicMaterial({
         color: 0x212121
       });
-      var eye2Black = new THREE.Mesh(geometryEye2Black, materialEye2Black);
-      eye2Black.material.side = THREE.DoubleSide; // to show all sides
-      eye2Black.position.z = -27;
-      eye2Black.position.y = 50;
-      groupHead.add(eye2Black);
+      var crossPupile2 = new THREE.Mesh(geometryEye2Black, materialEye2Black);
+      crossPupile2.material.side = THREE.DoubleSide; // to show all sides
+      crossPupile2.position.z = -27;
+      crossPupile2.position.y = 50;
+      groupHead.add(crossPupile2);
+
+
 
       group.add(groupHead);
 

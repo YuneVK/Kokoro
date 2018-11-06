@@ -126,7 +126,6 @@ Game.prototype.handleWindowResize = function () {
 }
 
 Game.prototype.loop = function () {
-  
   this.kokoro.updatePosition(this.mousePos);
   
   this.enemies.forEach(function (enemy) {
@@ -136,8 +135,6 @@ Game.prototype.loop = function () {
   this.ground.mesh.rotation.z += .005;
   this.sky.mesh.rotation.z += .001;
   
-  // render the scene
-  this.renderer.render(this.scene, this.camera);
   
   if (this.kokoro.isColisioned) {
     this.kokoro.counterColisioned++;
@@ -150,10 +147,14 @@ Game.prototype.loop = function () {
     this.kokoro.moveWings();
     this.checkCollision();
   }
+  this.kokoro.checkPupiles();
   
   this.updateScore();
   this.updateLife();
 
+  // render the scene
+  this.renderer.render(this.scene, this.camera);
+  
   // call the loop function again
   if (this.kokoro.lives > 0) {
     requestAnimationFrame(this.loop.bind(this));
@@ -219,7 +220,6 @@ Game.prototype.checkCollision = function() {
 
 
 Game.prototype.gameOver = function() {
-  //alert("fin!")
   this.kokoro.updatePosition(this.mousePos);
 
   // render the scene
