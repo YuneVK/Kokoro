@@ -14,7 +14,8 @@ let GameConfig = {
         iris: new THREE.MeshBasicMaterial({color: 0xffffff, side: THREE.DoubleSide}),
         pupile: new THREE.MeshBasicMaterial({color: 0x212121, side: THREE.DoubleSide})
       }
-    }
+    }, 
+    clouds: new THREE.MeshPhongMaterial({color: 0xffffff,flatShading: true})
   }, 
 
   geometries: {
@@ -31,7 +32,8 @@ let GameConfig = {
       neck: new THREE.CylinderGeometry(10, 10, 50, 32, 5), 
       body: new THREE.CylinderGeometry(10, 40, 100, 32, 5), 
       wings: new THREE.CircleGeometry(85, 32, 0, .8)
-    }
+    }, 
+    clouds: new THREE.OctahedronGeometry(10,2)
   }
 
 }
