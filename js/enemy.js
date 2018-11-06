@@ -3,7 +3,6 @@ function Enemy(scene, ground, finalAngle) {
   this.mesh = new THREE.Object3D();
   this.generateModel();
   this.setPosition(finalAngle);
-
   this.ground = ground;
 }
 
@@ -52,7 +51,6 @@ Enemy.prototype.generateModel = function () {
   var ball = new THREE.Mesh(geometry5, material5);
   ball.material.side = THREE.DoubleSide;
   this.mesh.add(ball);
-
 }
 
 Enemy.prototype.setPosition = function (finalAngle) {
@@ -62,7 +60,6 @@ Enemy.prototype.setPosition = function (finalAngle) {
   this.mesh.position.y = Math.sin(finalAngle)*distanceFromCenter;
   this.mesh.position.x = Math.cos(finalAngle)*distanceFromCenter;
   //this.mesh.rotation.z = finalAngle + Math.PI/2;
-
 }
 
 Enemy.prototype.addToScene = function () {
@@ -71,9 +68,6 @@ Enemy.prototype.addToScene = function () {
 }
 
 Enemy.prototype.draw = function () {
-  
-
-
   this.mesh.rotation.x += THREE.Math.degToRad(2);
   this.mesh.rotation.z += THREE.Math.degToRad(2);
 }

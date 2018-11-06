@@ -51,11 +51,9 @@ function Game() {
   this.kokoro = new Kokoro(this.scene);
   this.kokoro.addToScene();
 
-  this.numEnemies = 20;
+  this.numEnemies = 10;
   this.enemies = [];
   this.generateEnemies();
-
-
 
   // Mouse event
   document.addEventListener('mousemove', this.handleMouseMove.bind(this), false);
@@ -69,7 +67,6 @@ function Game() {
   // start a loop that will update the objects' positions 
   // and render the scene on each frame
   this.loop();
-
 }
 
 Game.prototype.createScene = function () {
@@ -79,7 +76,6 @@ Game.prototype.createScene = function () {
   // background color used in the style sheet
   this.scene.fog = new THREE.Fog(0x2673ad, 100, 950);
 }
-
 
 Game.prototype.createCamera = function () {
   // Create the camera
@@ -130,38 +126,34 @@ Game.prototype.handleWindowResize = function () {
 }
 
 Game.prototype.loop = function () {
-  this.kokoro.moveWings();
-
+  
   this.kokoro.updatePosition(this.mousePos);
-
-
-
+  
   this.enemies.forEach(function (enemy) {
     enemy.draw();
   }.bind(this));
-
+  
   this.ground.mesh.rotation.z += .005;
   this.sky.mesh.rotation.z += .001;
-
+  
   // render the scene
   this.renderer.render(this.scene, this.camera);
-
   
-  
-  if (this.kokoro.colisioned) {
+  if (this.kokoro.isColisioned) {
     this.kokoro.counterColisioned++;
     
-    if (this.kokoro.counterColisioned % this.kokoro.timeColisioned === 0) {
-      this.kokoro.colisioned = false;
+    if (this.kokoro.counterColisioned % this.kokoro.timeColisioned === 0 && this.kokoro.lives > 0) {
+      this.kokoro.isColisioned = false;
       this.kokoro.counterColisioned = 0;
     }
   } else {
+    this.kokoro.moveWings();
     this.checkCollision();
   }
   
   this.updateScore();
   this.updateLife();
-  
+
   // call the loop function again
   if (this.kokoro.lives > 0) {
     requestAnimationFrame(this.loop.bind(this));
@@ -171,13 +163,15 @@ Game.prototype.loop = function () {
 }
 
 Game.prototype.handleMouseMove = function (event) {
-  var directionX = -1 + (event.clientX / this.WIDTH) * 2;
-  var directionY = 1 - (event.clientY / this.HEIGHT) * 2;
-
-  this.mousePos = {
-    x: directionX,
-    y: directionY
-  };
+  if (this.kokoro.lives > 0) {
+    var directionX = -1 + (event.clientX / this.WIDTH) * 2;
+    var directionY = 1 - (event.clientY / this.HEIGHT) * 2;
+    
+    this.mousePos = {
+      x: directionX,
+      y: directionY
+    };
+  }
 }
 
 Game.prototype.generateEnemies = function() {
@@ -215,18 +209,23 @@ Game.prototype.checkCollision = function() {
     var diffY = Math.abs(kokoroPos.y - enemyPos.y);
 
     if (diffX < 20 && diffY < 20) {
-      console.log("colisión")
-      this.kokoro.colisioned = true;
+      console.log("colisión");
+      this.kokoro.collisioned();
+      this.kokoro.isColisioned = true;
       this.kokoro.lives--;
     }
   }.bind(this))
-
-    
 }
 
 
 Game.prototype.gameOver = function() {
-  alert("fin!")
+  //alert("fin!")
+  this.kokoro.updatePosition(this.mousePos);
+
+  // render the scene
+  this.renderer.render(this.scene, this.camera);
+
+  requestAnimationFrame(this.gameOver.bind(this));
 }
 
 Game.prototype.reload = function() {
