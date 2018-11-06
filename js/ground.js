@@ -16,7 +16,7 @@ Ground.prototype.createMesh = function() {
 	
 	// create the material 
 	var mat = new THREE.MeshPhongMaterial({
-		color:Colors.blue,
+		color: GameConfig.colors.blue,
 		transparent:true,
 		opacity:.6,
 		flatShading:true,

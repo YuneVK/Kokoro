@@ -1,3 +1,3 @@
 window.addEventListener('load', function() {
-	var game = new Game();
+	Game.init();
 }, false);
