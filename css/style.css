@@ -8,9 +8,20 @@ html, body {
 	height: 100%;
 	overflow: hidden;
 	background: linear-gradient(#2673AD, #68C0E9);
+	cursor: none;
 }
 
 div.info {
 	position: absolute;
+	z-index: 999;
+}
+
+div.replay {
+	position: absolute;
+	display: none;
+}
+
+div.replay.active {
+	display: inline-block;
 	z-index: 999;
 }

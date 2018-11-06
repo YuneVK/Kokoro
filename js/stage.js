@@ -1,7 +1,4 @@
 let Stage = {
-  // Get the width and the height of the screen,
-  // use them to set up the aspect ratio of the camera 
-  // and the size of the renderer.
   HEIGHT: window.innerHeight,
   WIDTH: window.innerWidth,
 
@@ -17,6 +14,8 @@ let Stage = {
   mousePos: {x: 0, y: 0},
 
   score: 0,
+  
+  gameOver: false,
 
   createScenary: function() {
     this.createScene();
@@ -90,6 +89,7 @@ let Stage = {
   setListeners: function() {
     document.addEventListener('resize', this.windowResize.bind(this), false);
     document.addEventListener('mousemove', this.mouseMove.bind(this), false);
+    document.addEventListener('click', this.clickReload.bind(this), false);
 
   }, 
 
@@ -145,5 +145,26 @@ let Stage = {
     }
 
     dom.innerHTML = htmlResult;
-    }
+  }, 
+
+  clickReload: function() {
+    if (this.gameOver) {
+
+      Game.reload();
+    } 
+  }, 
+
+  showGameOverScreen: function() {
+    Utils.addClass(document.querySelector("div.replay"), "active");
+  }, 
+
+  hideGameOverScreen: function() {
+    Utils.removeClass(document.querySelector("div.replay"), "active");
+  },
+
+  reset: function() {
+    Game.kokoro.lives = Game.kokoro.maxLives;
+    this.gameOver = false;
+    this.score = 0;
+  }
 }

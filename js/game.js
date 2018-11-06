@@ -42,6 +42,8 @@ let Game = {
     if (this.kokoro.lives > 0) {
       requestAnimationFrame(this.render.bind(this));
     } else {
+      Stage.gameOver = true;
+      Stage.showGameOverScreen();
       this.gameOver();
     }
   }, 
@@ -66,7 +68,15 @@ let Game = {
     this.kokoro.updatePosition(Stage.mousePos);
 
     Stage.renderer.render(Stage.scene, Stage.camera);
-  
-    requestAnimationFrame(this.gameOver.bind(this));
-  }
+    if (Stage.gameOver) {
+      requestAnimationFrame(this.gameOver.bind(this));
+    }
+  },
+
+  reload: function() {
+    Stage.hideGameOverScreen();
+    Stage.reset();
+    this.render();
+  }, 
+
 }

@@ -17,7 +17,8 @@ function Kokoro(scene) {
   this.counterColisioned = 0;
   this.timeColisioned = 30;
 
-  this.lives = 5;
+  this.maxLives = 1;
+  this.lives = this.maxLives;
 };
 
 Kokoro.prototype.addToScene = function () {
@@ -56,6 +57,7 @@ Kokoro.prototype.updatePosition = function (mousePos) {
       this.model.mesh.rotation.z = this.initialRotationZ + ((remainingY - this.model.mesh.position.y) * .0128);
     }
   } else {
+    this.checkPupiles();
     this.model.mesh.position.y -= 2;
     this.model.mesh.rotation.z += THREE.Math.degToRad(3);
     this.model.mesh.rotation.y += THREE.Math.degToRad(3);
