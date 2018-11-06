@@ -53,7 +53,7 @@ let Game = {
 
   checkCollision: function() {
     this.enemies.forEach(function(enemy) {
-      var enemyPos =  enemy.mesh.localToWorld(new THREE.Vector3());
+      var enemyPos =  enemy.model.mesh.localToWorld(new THREE.Vector3());
       var kokoroPos = this.kokoro.model.mesh.position;
   
       var diffX = Math.abs(kokoroPos.x - enemyPos.x);

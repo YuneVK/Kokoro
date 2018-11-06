@@ -15,7 +15,11 @@ let GameConfig = {
         pupile: new THREE.MeshBasicMaterial({color: 0x212121, side: THREE.DoubleSide})
       }
     }, 
-    clouds: new THREE.MeshPhongMaterial({color: 0xffffff,flatShading: true})
+    clouds: new THREE.MeshPhongMaterial({color: 0xffffff,flatShading: true}),
+    enemies: {
+      sphere: new THREE.MeshPhongMaterial({color: 0x34495E,transparent: true,opacity: 01,needsUpdate: true}),
+      ball: new THREE.MeshPhongMaterial({color: 0xff0000})
+    }
   }, 
 
   geometries: {
@@ -33,7 +37,15 @@ let GameConfig = {
       body: new THREE.CylinderGeometry(10, 40, 100, 32, 5), 
       wings: new THREE.CircleGeometry(85, 32, 0, .8)
     }, 
-    clouds: new THREE.OctahedronGeometry(10,2)
+    clouds: new THREE.OctahedronGeometry(10,2), 
+    enemies: {
+      sphere: {
+        lower: new THREE.SphereGeometry(60, 32, 32, 0, 6.3, 0, .8),
+        medium: new THREE.SphereGeometry(60, 32, 32, 0, 6.3, 1.15, .25),
+        bigger: new THREE.SphereGeometry(60, 32, 32, 0, 6.3, 1.7, .25)
+      }, 
+      ball: new THREE.SphereGeometry(10, 32, 32)
+    }
   }
 
 }

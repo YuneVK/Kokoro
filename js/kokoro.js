@@ -1,12 +1,9 @@
 function Kokoro(scene) {
-  //debugger;
   this.model = new Kokoro3D();
   this.model.generateModel();
   
   this.model.mesh.scale.set(.15, .15, .15);
   this.model.mesh.position.y = 100;
-
-  //this.box = new THREE.Box3().setFromObject(this.mesh);
 
   this.scene = scene;
 
@@ -21,10 +18,7 @@ function Kokoro(scene) {
   this.timeColisioned = 30;
 
   this.lives = 5;
-
 };
-
-
 
 Kokoro.prototype.addToScene = function () {
 
@@ -81,8 +75,8 @@ Kokoro.prototype.updatePosition = function (mousePos) {
 Kokoro.prototype.collisioned = function() {
   this.model.mesh.rotation.z -= THREE.Math.degToRad(30);
   this.model.mesh.rotation.y -= THREE.Math.degToRad(30);
-  //this.model.mesh.rotation.z += THREE.Math.degToRad(50);
   this.model.mesh.position.x -= 10;
+
   this.checkPupiles();
 }
 
@@ -95,9 +89,5 @@ Kokoro.prototype.checkPupiles = function() {
 
 Kokoro.prototype.render = function() {
   this.updatePosition(Stage.mousePos);
-
   this.checkPupiles();
-
-
 }
-
