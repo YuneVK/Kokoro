@@ -11,7 +11,10 @@ let Stage = {
 
   numEnemies: 20,
   numLives: 5,
+
   velocity: 0.005,
+  vIncrement: 0.001,
+  vMax: 0.02,
   //velocity: 0.005,
 
   mousePos: {x: 0, y: 0},
@@ -151,6 +154,8 @@ let Stage = {
     // SCORE
     this.score += .1;
     document.querySelector('div.info span').innerHTML = Math.floor(this.score);
+
+    console.log(this.score)
 
     // INFO
     var dom = document.querySelector('div.life');
