@@ -22,6 +22,15 @@
     var geometry, material, mesh;
     var group, wing1;
 
+    var ringTop;
+    var ringBottom;
+
+    var ball;
+
+    var light;
+
+    var initialOpacity = 1;
+
     function setup() {
 
       var W = window.innerWidth,
@@ -68,7 +77,7 @@
       
 
       mesh = new THREE.Object3D();
-      var material = new THREE.MeshPhongMaterial( {color: 0xECF0F1} );
+      var material = new THREE.MeshPhongMaterial( {color: 0x424242} );
       material.transparent = true;
       material.opacity = 1;
       material.needsUpdate = true;
@@ -76,7 +85,6 @@
       var geometry1 = new THREE.SphereGeometry( 60, 32, 32, 0, 6.3, 0, .8 );
       var sphere1 = new THREE.Mesh( geometry1, material );
       sphere1.material.side = THREE.DoubleSide;
-
       mesh.add(sphere1);
 
       var geometry2 = new THREE.SphereGeometry( 60, 32, 32, 0, 6.3, 0, .8 );
@@ -88,62 +96,48 @@
       mesh.add(sphere2);
 
       var geometry3 = new THREE.SphereGeometry( 60, 32, 32, 0, 6.3, 1.15, .25 );
-      var sphere3 = new THREE.Mesh( geometry3, material );
-      sphere3.material.side = THREE.DoubleSide;
-      mesh.add(sphere3);
+      ringTop = new THREE.Mesh( geometry3, material );
+      ringTop.material.side = THREE.DoubleSide;
+      mesh.add(ringTop);
 
       var geometry4 = new THREE.SphereGeometry( 60, 32, 32, 0, 6.3, 1.7, .25 );
-      var sphere4 = new THREE.Mesh( geometry4, material );
-      sphere4.material.side = THREE.DoubleSide;
-      mesh.add(sphere4);
+      ringBottom = new THREE.Mesh( geometry4, material );
+      ringBottom.material.side = THREE.DoubleSide;
+      mesh.add(ringBottom);
 
 
-      var light = new THREE.PointLight( 0xff0000, 5, 100 );
+      light = new THREE.PointLight( 0xff0000, 5, 100 );
       light.position.set( 0, 0, 0 );
       mesh.add(light);
 
       var geometry5 = new THREE.SphereGeometry( 15, 32, 32 );
       var material5 = new THREE.MeshPhongMaterial( {color: 0xff0000} );
-      var ball = new THREE.Mesh( geometry5, material5 );
+      ball = new THREE.Mesh( geometry5, material5 );
       ball.material.side = THREE.DoubleSide;
       mesh.add(ball);
 
-
-
-      // mesh.position.y = 100;
-      // mesh.position.x = 30;
-
-
       scene.add(mesh)
-
-
-
     }
 
     function draw() {
-
-
-
-
-      // if (wing1.rotation.y > THREE.Math.degToRad(90) && wing1.rotation.y > THREE.Math.degToRad(30)) {
-      //   wing1.rotation.y -= .005;
-      //   console.log("resta")
-      // } else {
-      //   wing1.rotation.y += .005;
-      //   console.log("suma")
-      // }
-      
-      
-
       requestAnimationFrame(draw);
 
       mesh.rotation.x += THREE.Math.degToRad(1);
       mesh.rotation.z += THREE.Math.degToRad(1);
 
-      //controls.update(); // only required if controls.enableDamping = true, or if controls.autoRotate = true
+      ringTop.opacity = .5;
+      ringTop.material.opacity -= .05;
+
+      ringTop.scale.x += .1;
+      ringBottom.scale.x += .1;
+
+      ball.scale.x += .01;
+      ball.scale.y += .01;
+      ball.scale.z += .01;
+
+      light.intensity += 1;
 
       renderer.render(scene, camera);
-
     }
 
     setup();

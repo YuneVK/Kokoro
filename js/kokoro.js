@@ -17,7 +17,7 @@ function Kokoro(scene) {
   this.counterColisioned = 0;
   this.timeColisioned = 30;
 
-  this.maxLives = 1;
+  this.maxLives = 5;
   this.lives = this.maxLives;
 };
 

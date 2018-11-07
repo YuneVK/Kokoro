@@ -9,7 +9,7 @@ let Stage = {
   ground: null,
   sky: null,
 
-  numEnemies: 10,
+  numEnemies: 20,
 
   mousePos: {x: 0, y: 0},
 

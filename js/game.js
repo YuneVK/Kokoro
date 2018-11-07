@@ -15,6 +15,9 @@ let Game = {
   }, 
 
   render: function() {
+    
+
+
     this.kokoro.render();
     
     this.enemies.forEach(function (enemy) {
@@ -50,16 +53,22 @@ let Game = {
 
   checkCollision: function() {
     this.enemies.forEach(function(enemy) {
-      var enemyPos =  enemy.model.mesh.localToWorld(new THREE.Vector3());
-      var kokoroPos = this.kokoro.model.mesh.position;
+      if (!enemy.isColisioned) {
+        var enemyPos =  enemy.model.mesh.localToWorld(new THREE.Vector3());
   
-      var diffX = Math.abs(kokoroPos.x - enemyPos.x);
-      var diffY = Math.abs(kokoroPos.y - enemyPos.y);
+        var kokoroPos = this.kokoro.model.mesh.position;
+    
+        var diffX = Math.abs(kokoroPos.x - enemyPos.x);
+        var diffY = Math.abs(kokoroPos.y - enemyPos.y);
+    
+        if (diffX < 20 && diffY < 20) {
+          this.kokoro.collisioned();
+          this.kokoro.isColisioned = true;
+          this.kokoro.lives--;
   
-      if (diffX < 20 && diffY < 20) {
-        this.kokoro.collisioned();
-        this.kokoro.isColisioned = true;
-        this.kokoro.lives--;
+          enemy.isCollisioned = true;
+          enemy.model.isExpanding = true;
+        }
       }
     }.bind(this))
   }, 
