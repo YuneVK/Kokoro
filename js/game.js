@@ -20,6 +20,8 @@ let Game = {
       Utils.addClass(document.querySelector('div.loading'), 'hidden');
       Utils.removeClass(document.querySelector('div.info'), 'hidden');
     }
+
+    Stage.checkVelocity();
     
     Stage.ground.move();
     

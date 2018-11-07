@@ -20,6 +20,9 @@ let Stage = {
   mousePos: {x: 0, y: 0},
 
   score: 0,
+
+  scoreDOM: 0,
+  prevScoreDOM: 0,
   
   gameOver: false,
 
@@ -155,8 +158,6 @@ let Stage = {
     this.score += .1;
     document.querySelector('div.info span').innerHTML = Math.floor(this.score);
 
-    console.log(this.score)
-
     // INFO
     var dom = document.querySelector('div.life');
     var htmlResult = "";
@@ -191,5 +192,14 @@ let Stage = {
     Game.kokoro.lives = Game.kokoro.maxLives;
     this.gameOver = false;
     this.score = 0;
+  }, 
+
+  checkVelocity: function() {
+    this.scoreDOM = parseInt(document.querySelector('div.score span').innerHTML);
+    if ((this.scoreDOM > 0) && (this.scoreDOM % 30 === 0) && (this.scoreDOM !== this.prevScoreDOM)) {
+      console.log("incremento");
+      this.velocity += this.vIncrement;
+      this.prevScoreDOM = this.scoreDOM;
+    }
   }
 }
