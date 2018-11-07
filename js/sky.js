@@ -1,6 +1,6 @@
 function Sky(scene){
   // choose a number of clouds to be scattered in the sky
-  this.nClouds = 20;
+  this.nClouds = 25;
   
 	// Create an empty container
   this.mesh = new THREE.Object3D();

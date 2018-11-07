@@ -38,7 +38,7 @@ let Stage = {
 
   createScene: function() {
     this.scene = new THREE.Scene();
-    this.scene.fog = new THREE.Fog(0x2673ad, 100, 950);
+    this.scene.fog = new THREE.Fog(0xf7d9aa, 100, 950);
   }, 
 
   createCamera: function () {
