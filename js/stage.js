@@ -1,5 +1,4 @@
 let Stage = {
-  
   HEIGHT: window.innerHeight,
   WIDTH: window.innerWidth,
 
