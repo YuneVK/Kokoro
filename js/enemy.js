@@ -11,7 +11,7 @@ function Enemy(scene, ground, finalAngle) {
 }
 
 Enemy.prototype.setPosition = function (finalAngle) {
-  this.model.mesh.scale.set(.2, .2, .2);
+  this.model.mesh.scale.set(.15, .15, .15);
   var distanceFromCenter = 650 + Math.random() * 200;
 
   this.model.mesh.position.y = Math.sin(finalAngle) * distanceFromCenter;
@@ -69,7 +69,7 @@ Enemy.prototype.explosionRender = function () {
 
 Enemy.prototype.resetSize = function () {
   this.model.ringTop.opacity = 1;
-  this.model.ringTop.material.opacity = 1;
+  this.model.ringTop.material.opacity = 0.5;
 
   this.model.ringTop.scale.x = 1;
   this.model.ringBottom.scale.x = 1;

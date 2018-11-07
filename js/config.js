@@ -17,7 +17,7 @@ let GameConfig = {
     }, 
     clouds: new THREE.MeshPhongMaterial({color: 0xffffff,flatShading: true}),
     enemies: {
-      sphere: new THREE.MeshPhongMaterial({color: 0xB80000,transparent: true,opacity: 0.5,needsUpdate: true}),
+      sphere: new THREE.MeshPhongMaterial({color: 0x950000,transparent: true,opacity: 0.5,needsUpdate: true}),
       ball: new THREE.MeshBasicMaterial({color: 0xB80000})
     }, 
     ground: new THREE.MeshPhongMaterial({color: 0x5B733B,transparent:true,opacity:1,flatShading:true,})
@@ -42,8 +42,8 @@ let GameConfig = {
     enemies: {
       sphere: {
         lower: new THREE.SphereGeometry(60, 32, 32, 0, 6.3, 0, .8),
-        medium: new THREE.SphereGeometry(60, 32, 32, 0, 6.3, 1.15, .25),
-        bigger: new THREE.SphereGeometry(60, 32, 32, 0, 6.3, 1.7, .25)
+        medium: new THREE.SphereGeometry(60, 32, 32, 0, 6.3, 1.3, .6),
+        bigger: new THREE.SphereGeometry(60, 32, 32, 0, 6.3, 1.3, .6)
       }, 
       ball: new THREE.SphereGeometry(10, 32, 32)
     }, 
