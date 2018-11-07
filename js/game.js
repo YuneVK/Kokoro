@@ -16,9 +16,10 @@ let Game = {
   }, 
 
   render: function() {
-    
-    console.log("render");
-    console.log("Score " + Stage.score)
+    if (Stage.score === 0.1) {
+      Utils.addClass(document.querySelector('div.loading'), 'hidden');
+      Utils.removeClass(document.querySelector('div.info'), 'hidden');
+    }
     
     Stage.ground.move();
     
