@@ -38,7 +38,7 @@ let Stage = {
 
   createScene: function() {
     this.scene = new THREE.Scene();
-    this.scene.fog = new THREE.Fog(0xf7d9aa, 100, 950);
+    this.scene.fog = new THREE.Fog(0xE0FFFE, 100, 950);
   }, 
 
   createCamera: function () {
@@ -134,14 +134,18 @@ let Stage = {
   updateDOMInfo: function() {
     // SCORE
     this.score += .1;
-    document.querySelector('div.info p span').innerHTML = Math.floor(this.score);
+    document.querySelector('div.info span').innerHTML = Math.floor(this.score);
 
     // INFO
     var dom = document.querySelector('div.life');
     var htmlResult = "";
 
-    for (var i = 1; i <= Game.kokoro.lives; i++) {
-      htmlResult += "<span>X</span>";
+    for (var i = 1; i <= Game.kokoro.maxLives; i++) {
+      if (i > Game.kokoro.lives) {
+        htmlResult += "<span class='life false'></span>";
+      } else {
+        htmlResult += "<span class='life true'></span>";
+      }
     }
 
     dom.innerHTML = htmlResult;

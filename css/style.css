@@ -1,5 +1,28 @@
+@import url('https://fonts.googleapis.com/css?family=Fauna+One|Roboto');
+
 html, body {
   margin: 0; padding: 0; overflow: hidden;
+}
+
+body {
+	font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+	font-family: 'Fauna One', serif;
+	margin-bottom: .5rem;
+	font-size: 2.5rem;
+	letter-spacing: .05rem;
+	color: #212121;
+}
+
+h2 {
+	font-size: 4rem;
+	font-weight: 100;
+	letter-spacing: .025rem;
+	color: #212121;
+	margin-bottom: 1rem;
+	margin-top: 0;
 }
 
 #world {
@@ -7,13 +30,45 @@ html, body {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	background: linear-gradient(#e4e0ba, #f7d9aa);
+	background: linear-gradient(#7B9CE7, #E0FFFE);
 	cursor: none;
 }
 
 div.info {
 	position: absolute;
 	z-index: 999;
+	bottom: 2rem;
+	left: 0;
+	right: 0;
+	margin: 0 auto;
+	width: fit-content;
+	text-align: center;
+}
+
+div.info .content {
+	display: flex;
+	justify-content: space-around;
+}
+
+div.info .content > div {
+	margin: 0 2rem;
+}
+
+div.info p {
+	color: #212121;
+	text-transform: uppercase;
+	letter-spacing: .025rem;
+	font-weight: 600;
+	font-size: .8rem;
+	margin-bottom: .3rem;
+	opacity: .8;
+}
+
+div.info .score span {
+	font-size: 2rem;
+	font-weight: 600;
+	letter-spacing: .05rem;
+	color: #212121
 }
 
 div.replay {
@@ -21,9 +76,26 @@ div.replay {
 	display: none;
 }
 
+div.replay p {
+	text-transform: uppercase;
+	margin-top: 0;
+	opacity: .6;
+	font-size: 1rem;
+	letter-spacing: .05rem;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
 div.replay.active {
 	display: inline-block;
 	z-index: 999;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	background: rgba(255,255,255,.5);
 }
 
 #particles-js {
@@ -31,4 +103,20 @@ div.replay.active {
 	width: 100vw;
 	height: 70vh;
 	z-index: 9;
+}
+
+/* LIFES */
+span.life {
+	display: inline-block;
+	height: 2rem;
+	width: 2rem;
+	margin: 0 .2rem;
+	background-image: url(../img/heart.svg);
+	background-repeat: no-repeat;
+	background-size: cover;
+	background-position: center;
+}
+
+span.life.false {
+	opacity: .3;
 }

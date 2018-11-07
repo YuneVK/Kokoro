@@ -8,7 +8,7 @@ let GameConfig = {
   
   materials: {
     kokoro: {
-      body: new THREE.MeshPhongMaterial({color: 0xfafafa, shading:THREE.FlatShading }), 
+      body: new THREE.MeshPhongMaterial({color: 0x212121, shading:THREE.FlatShading }), 
       wings: new THREE.MeshBasicMaterial({color: 0x212121, side: THREE.DoubleSide}), 
       eyes: {
         iris: new THREE.MeshBasicMaterial({color: 0xfefaed, side: THREE.DoubleSide}),
@@ -17,10 +17,10 @@ let GameConfig = {
     }, 
     clouds: new THREE.MeshPhongMaterial({color: 0xffffff,flatShading: true}),
     enemies: {
-      sphere: new THREE.MeshPhongMaterial({color: 0x5414aa,transparent: true,opacity: 01,needsUpdate: true}),
-      ball: new THREE.MeshBasicMaterial({color: 0xeca2df})
+      sphere: new THREE.MeshPhongMaterial({color: 0xB80000,transparent: true,opacity: 0.5,needsUpdate: true}),
+      ball: new THREE.MeshBasicMaterial({color: 0xB80000})
     }, 
-    ground: new THREE.MeshPhongMaterial({color: 0x597080,transparent:true,opacity:1,flatShading:true,})
+    ground: new THREE.MeshPhongMaterial({color: 0x5B733B,transparent:true,opacity:1,flatShading:true,})
   }, 
 
   geometries: {

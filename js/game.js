@@ -16,8 +16,8 @@ let Game = {
 
   render: function() {
     
-
-
+    Stage.ground.move();
+    
     this.kokoro.render();
     
     this.enemies.forEach(function (enemy) {

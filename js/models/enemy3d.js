@@ -23,13 +23,13 @@ Enemy3D.prototype.generateModel = function() {
   } );
 
   var materialSphere = GameConfig.materials.enemies.sphere.clone();
-  var sphere1 = new THREE.Mesh(GameConfig.geometries.enemies.sphere.lower, material);
+  var sphere1 = new THREE.Mesh(GameConfig.geometries.enemies.sphere.lower, materialSphere);
   sphere1.material.side = THREE.DoubleSide;
   //materialSphere.color.multiplyScalar( 1.5 );
 
   this.mesh.add(sphere1);
 
-  var sphere2 = new THREE.Mesh(GameConfig.geometries.enemies.sphere.lower, material);
+  var sphere2 = new THREE.Mesh(GameConfig.geometries.enemies.sphere.lower, materialSphere);
   sphere2.material.side = THREE.DoubleSide;
   sphere2.rotation.z = THREE.Math.degToRad(180);
 
@@ -37,16 +37,16 @@ Enemy3D.prototype.generateModel = function() {
 
   
 
-  var ringTopAux = new THREE.Mesh(GameConfig.geometries.enemies.sphere.medium, material);
+  var ringTopAux = new THREE.Mesh(GameConfig.geometries.enemies.sphere.medium, materialSphere);
   ringTopAux.material.side = THREE.DoubleSide;
   this.ringTop = ringTopAux.clone();
   this.mesh.add(this.ringTop);
 
-  this.ringBottom = new THREE.Mesh(GameConfig.geometries.enemies.sphere.bigger, material);
+  this.ringBottom = new THREE.Mesh(GameConfig.geometries.enemies.sphere.bigger, materialSphere);
   this.ringBottom.material.side = THREE.DoubleSide;
   this.mesh.add(this.ringBottom);
 
-  this.light = new THREE.PointLight(0xeca2df, 1, 20);
+  this.light = new THREE.PointLight(0xB80000, 1, 20);
   this.light.position.set(0, 0, 0);
   this.mesh.add(this.light);
 
