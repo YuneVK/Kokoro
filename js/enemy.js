@@ -23,16 +23,16 @@ Enemy.prototype.addToScene = function () {
 }
 
 Enemy.prototype.draw = function () {
-  this.model.mesh.rotation.x += THREE.Math.degToRad(2);
-  this.model.mesh.rotation.z += THREE.Math.degToRad(2);
+  var enemyPos = this.model.mesh.localToWorld(new THREE.Vector3());
 
-  if (this.isCollisioned) {
-    this.explosionRender();
-
-    var enemyPos = this.model.mesh.localToWorld(new THREE.Vector3());
-    if (enemyPos.y < 0) this.resetSize();
+  if (enemyPos.y > 0) {
+    this.model.mesh.rotation.x += THREE.Math.degToRad(2);
+    this.model.mesh.rotation.z += THREE.Math.degToRad(2);
+  
+    if (this.isCollisioned) this.explosionRender();
+  } else {
+    if (this.model.ringTop.opacity !== 1) this.resetSize();
   }
-
 }
 
 Enemy.prototype.explosionRender = function () {
