@@ -13,7 +13,7 @@ function Kokoro(scene) {
 
   this.addToScene();
 
-  this.isColisioned = false;
+  this.isCollisioned = false;
   this.counterColisioned = 0;
   this.timeColisioned = 30;
 
@@ -47,7 +47,7 @@ Kokoro.prototype.updatePosition = function (mousePos) {
     // Move at each frame by adding a fraction of the remaining distance
     this.model.mesh.position.y += (remainingY - this.model.mesh.position.y) * .1;
     
-    if (this.isColisioned) {
+    if (this.isCollisioned) {
       this.model.mesh.position.x += .5;
       this.model.mesh.rotation.z += THREE.Math.degToRad(1);
       
@@ -83,7 +83,7 @@ Kokoro.prototype.collisioned = function() {
 }
 
 Kokoro.prototype.checkPupiles = function() {
-  var colisioned = this.isColisioned;
+  var colisioned = this.isCollisioned;
   
   this.model.eyesNormal.visible = !colisioned;
   this.model.eyesCrossed.visible = colisioned;

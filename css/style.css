@@ -21,7 +21,7 @@ h2 {
 	font-weight: 100;
 	letter-spacing: .025rem;
 	color: #212121;
-	margin-bottom: 1rem;
+	margin-bottom: .5rem;
 	margin-top: 0;
 }
 
@@ -76,7 +76,15 @@ div.replay {
 	display: none;
 }
 
-div.replay p {
+div.replay p.score {
+	margin-top: 0;
+	opacity: .8;
+	font-size: 1.4rem;
+	letter-spacing: .05rem;
+	margin-bottom: 2.5rem;
+}
+
+div.replay p.tap {
 	text-transform: uppercase;
 	margin-top: 0;
 	opacity: .6;
@@ -97,6 +105,7 @@ div.replay.active {
 	justify-content: center;
 	background: rgba(255,255,255,.5);
 }
+
 
 #particles-js {
 	position: absolute;

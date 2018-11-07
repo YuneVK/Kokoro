@@ -48,5 +48,6 @@ let GameConfig = {
       ball: new THREE.SphereGeometry(10, 32, 32)
     }, 
     ground: new THREE.CylinderGeometry(600,600,800,40,10)
-  }
+  }, 
+  velocity: 0.002
 }

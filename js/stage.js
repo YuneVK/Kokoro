@@ -10,6 +10,9 @@ let Stage = {
   sky: null,
 
   numEnemies: 20,
+  numLives: 5,
+  velocity: 0.005,
+  //velocity: 0.005,
 
   mousePos: {x: 0, y: 0},
 
@@ -126,8 +129,21 @@ let Stage = {
     return enemies;
   },
 
+  generateLives: function() {
+    var stepAngle = Math.PI*2 / this.numLives;
+    var lives = [];
+  
+    for (var i = 0; i <= this.numLives; i++) {
+      var finalAngle = stepAngle*i;
+      lives.push(new Live(this.scene, this.ground, finalAngle));
+      lives[i].addToScene();
+    }
+
+    return lives;
+  },
+
   renderScenary: function() {
-    this.ground.mesh.rotation.z += .005;
+    //this.ground.mesh.rotation.z += this.velocity;
     this.sky.mesh.rotation.z += .001;
   }, 
 

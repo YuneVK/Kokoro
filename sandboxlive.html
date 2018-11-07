@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    body {
+      background-color: #ffffff;
+      margin: 0;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+
+  <script src="js/three.min.js"></script>
+  <script src="js/OrbitControls.js"></script>
+  <script src="js/lights.js"></script>
+  <script>
+    var camera, scene, renderer;
+    var geometry, material, mesh;
+    var group, wing1;
+
+    var ring1, ring2;
+
+    var ringTop;
+    var ringBottom;
+
+    var ball;
+
+    var light;
+
+    var initialOpacity = 1;
+
+    function setup() {
+
+      var W = window.innerWidth,
+        H = window.innerHeight;
+
+      renderer = new THREE.WebGLRenderer({
+        alpha: true
+      });
+      renderer.setSize(W, H);
+      // Set a near white clear color (default is black)
+      renderer.setClearColor(0xfff6e6);
+
+      // Enable shadow mapping
+      renderer.shadowMap.enabled = true;
+      renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+
+      document.body.appendChild(renderer.domElement);
+
+      camera = new THREE.PerspectiveCamera(50, W / H, 0.1, 10000);
+      camera.position.z = 500;
+
+      // controls
+      controls = new THREE.OrbitControls(camera, renderer.domElement);
+      //controls.addEventListener( 'change', render ); // call this only in static scenes (i.e., if there is no animation loop)
+      controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+      controls.dampingFactor = 0.85; // SENSIBILIDAD
+      controls.screenSpacePanning = false;
+      controls.minDistance = 100;
+      controls.maxDistance = 500;
+      controls.maxPolarAngle = Math.PI / 2;
+
+      scene = new THREE.Scene();
+
+      var lights = new Lights(scene);
+      lights.addToScene();
+
+
+
+      /* -------------------------------- */
+      /* --------- SANBOX --------------- */
+      /* -------------------------------- */
+      
+      
+
+      mesh = new THREE.Object3D();
+      var material = new THREE.MeshPhongMaterial( {color: 0x424242} );
+      material.transparent = true;
+      material.opacity = 1;
+      material.needsUpdate = true;
+
+      var geometry1 = new THREE.SphereGeometry( 60, 32, 32, 0, 6.3, 0, .8 );
+      var sphere1 = new THREE.Mesh( geometry1, material );
+      sphere1.material.side = THREE.DoubleSide;
+      //mesh.add(sphere1);
+
+      var geometry2 = new THREE.SphereGeometry( 60, 32, 32, 0, 6.3, 0, .8 );
+      var sphere2 = new THREE.Mesh( geometry2, material );
+      sphere2.material.side = THREE.DoubleSide;
+
+      sphere2.rotation.z = THREE.Math.degToRad(180);
+
+      //mesh.add(sphere2);
+
+      var geometry3 = new THREE.SphereGeometry( 60, 32, 32, 0, 6.3, 1.55, .1 );
+      ringTop = new THREE.Mesh( geometry3, material );
+      ringTop.material.side = THREE.DoubleSide;
+      ringTop.rotation.x = THREE.Math.degToRad(90);
+      mesh.add(ringTop);
+
+      var geometry4 = new THREE.SphereGeometry( 60, 32, 32, 0, 6.3, 1.55, .1 );
+      ringBottom = new THREE.Mesh( geometry4, material );
+      ringBottom.material.side = THREE.DoubleSide;
+      mesh.add(ringBottom);
+
+
+      light = new THREE.PointLight( 0xfe3500, 5, 100 );
+      light.position.set( 0, 0, 0 );
+      mesh.add(light);
+
+      // var geometry5 = new THREE.SphereGeometry( 15, 32, 32 );
+      // var material5 = new THREE.MeshPhongMaterial( {color: 0xff0000} );
+      // ball = new THREE.Mesh( geometry5, material5 );
+      // ball.material.side = THREE.DoubleSide;
+      // mesh.add(ball);
+
+      var img = new THREE.MeshBasicMaterial({ //CHANGED to MeshBasicMaterial
+        map:THREE.ImageUtils.loadTexture('img/heart.png'), 
+        transparent: true, 
+        alphaTest: 0.5
+      });
+      img.map.needsUpdate = true; //ADDED
+      var plane = new THREE.Mesh(new THREE.CubeGeometry( 50,50, 50 ),img);
+      plane.overdraw = true;
+
+      mesh.add(plane);
+
+      scene.add(mesh)
+    }
+
+    function draw() {
+      requestAnimationFrame(draw);
+
+      //mesh.rotation.x += THREE.Math.degToRad(1);
+      //mesh.rotation.z += THREE.Math.degToRad(1);
+
+      ringTop.rotation.x += THREE.Math.degToRad(1);
+      //ringTop.rotation.y += THREE.Math.degToRad(1);
+      ringTop.rotation.z += THREE.Math.degToRad(1);
+      ringBottom.rotation.x += THREE.Math.degToRad(1);
+      //ringBottom.rotation.y += THREE.Math.degToRad(1);
+      ringBottom.rotation.z += THREE.Math.degToRad(1);
+
+      // ringTop.scale.x += .1;
+      // ringBottom.scale.x += .1;
+
+      // ball.scale.x += .01;
+      // ball.scale.y += .01;
+      // ball.scale.z += .01;
+
+      // light.intensity += 1;
+
+      renderer.render(scene, camera);
+    }
+
+    setup();
+    draw();
+  </script>
+
+</body>
+
+</html>

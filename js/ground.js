@@ -1,6 +1,7 @@
 function Ground(scene){
   this.mesh = null;
-  this.createMesh();
+	this.createMesh();
+	this.setVertices();
   this.scene = scene;
 }
 
@@ -24,15 +25,15 @@ Ground.prototype.createMesh = function() {
 
 		// store some data associated to it
 		this.waves.push({y:v.y,
-										 x:v.x,
-										 z:v.z,
-										 // a random angle
-										 ang:Math.random()*Math.PI*2,
-										 // a random distance
-										 amp:5 + Math.random()*15,
-										 // a random speed between 0.016 and 0.048 radians / frame
-										 speed:0.016 + Math.random()*0.032
-										});
+										x:v.x,
+										z:v.z,
+										// a random angle
+										ang:Math.random()*Math.PI*2,
+										// a random distance
+										amp:5 + Math.random()*15,
+										// a random speed between 0.016 and 0.048 radians / frame
+										speed:0.016 + Math.random()*0.032
+			});
 	};
 
   this.mesh = new THREE.Mesh(geometry, GameConfig.materials.ground);
@@ -44,8 +45,8 @@ Ground.prototype.addToScene = function() {
   this.scene.add(this.mesh);
 }
 
-Ground.prototype.move = function() {
-  var verts = this.mesh.geometry.vertices;
+Ground.prototype.setVertices = function() {
+	var verts = this.mesh.geometry.vertices;
 	var l = verts.length;
 	
 	for (var i=0; i<l; i++){
@@ -60,7 +61,6 @@ Ground.prototype.move = function() {
 
 		// increment the angle for the next frame
 		vprops.ang += vprops.speed;
-
 	}
 
 	// Tell the renderer that the geometry of the sea has changed.
@@ -68,6 +68,10 @@ Ground.prototype.move = function() {
 	// three.js caches the geometries and ignores any changes
 	// unless we add this line
 	this.mesh.geometry.verticesNeedUpdate=true;
+}
 
-	this.mesh.rotation.z += .005;
+Ground.prototype.move = function() {
+  
+
+	this.mesh.rotation.z += Stage.velocity;
 }

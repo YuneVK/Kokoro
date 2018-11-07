@@ -10,11 +10,15 @@ let Game = {
     this.kokoro.addToScene();
 
     this.enemies = Stage.generateEnemies();
+    this.lives = Stage.generateLives();
 
     this.render();
   }, 
 
   render: function() {
+    
+    console.log("render");
+    console.log("Score " + Stage.score)
     
     Stage.ground.move();
     
@@ -23,20 +27,26 @@ let Game = {
     this.enemies.forEach(function (enemy) {
       enemy.draw();
     }.bind(this));
+
+    this.lives.forEach(function (live) {
+      live.draw();
+    }.bind(this));
     
     Stage.renderScenary();
     
-    if (this.kokoro.isColisioned) {
+    if (this.kokoro.isCollisioned) {
       this.kokoro.counterColisioned++;
       
       if (this.kokoro.counterColisioned % this.kokoro.timeColisioned === 0 && this.kokoro.lives > 0) {
-        this.kokoro.isColisioned = false;
+        this.kokoro.isCollisioned = false;
         this.kokoro.counterColisioned = 0;
       }
     } else {
       this.kokoro.moveWings();
-      this.checkCollision();
+      this.checkCollisionEnemy();
     }
+
+    this.checkCollisionLive();
     
     Stage.updateDOMInfo();
   
@@ -51,9 +61,9 @@ let Game = {
     }
   }, 
 
-  checkCollision: function() {
+  checkCollisionEnemy: function() {
     this.enemies.forEach(function(enemy) {
-      if (!enemy.isColisioned) {
+      if (!enemy.isCollisioned) {
         var enemyPos =  enemy.model.mesh.localToWorld(new THREE.Vector3());
   
         var kokoroPos = this.kokoro.model.mesh.position;
@@ -63,11 +73,30 @@ let Game = {
     
         if (diffX < 20 && diffY < 20) {
           this.kokoro.collisioned();
-          this.kokoro.isColisioned = true;
+          this.kokoro.isCollisioned = true;
           this.kokoro.lives--;
   
           enemy.isCollisioned = true;
           enemy.model.isExpanding = true;
+        }
+      }
+    }.bind(this))
+  }, 
+
+  checkCollisionLive: function() {
+    this.lives.forEach(function(live) {
+      if (!live.isCollisioned) {
+        var livePos =  live.model.mesh.localToWorld(new THREE.Vector3());
+  
+        var kokoroPos = this.kokoro.model.mesh.position;
+    
+        var diffX = Math.abs(kokoroPos.x - livePos.x);
+        var diffY = Math.abs(kokoroPos.y - livePos.y);
+    
+        if (diffX < 20 && diffY < 20) {
+          if (Game.kokoro.lives < Game.kokoro.maxLives) Game.kokoro.lives++;
+          live.isCollisioned = true;
+          live.model.isExpanding = true;
         }
       }
     }.bind(this))
