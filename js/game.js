@@ -6,6 +6,10 @@ let Game = {
     Stage.createScenary();
     Stage.createWorld();
     Stage.setListeners();
+
+    Sounds.init();
+    Sounds.music.play();
+
     this.kokoro = new Kokoro(Stage.scene);
     this.kokoro.addToScene();
 
@@ -81,6 +85,8 @@ let Game = {
   
           enemy.isCollisioned = true;
           enemy.model.isExpanding = true;
+
+          this.kokoro.lives > 0 ? Sounds.collision.play() : Sounds.death.play();
         }
       }
     }.bind(this))
@@ -98,8 +104,11 @@ let Game = {
     
         if (diffX < 20 && diffY < 20) {
           if (Game.kokoro.lives < Game.kokoro.maxLives) Game.kokoro.lives++;
+
           live.isCollisioned = true;
           live.model.isExpanding = true;
+
+          Sounds.live.play();
         }
       }
     }.bind(this))
@@ -117,6 +126,9 @@ let Game = {
   reload: function() {
     Stage.hideGameOverScreen();
     Stage.reset();
+
+    Sounds.reload.play();
+
     this.render();
   }, 
 
