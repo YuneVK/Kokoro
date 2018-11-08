@@ -8,7 +8,7 @@ function Live3D() {
 }
 
 Live3D.prototype.generateModel = function() {
-  var material = new THREE.MeshPhongMaterial( {color: 0x424242} );
+  var material = new THREE.MeshBasicMaterial( {color: 0x424242} );
   material.transparent = true;
   material.opacity = 1;
   material.needsUpdate = true;
