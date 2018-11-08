@@ -24,6 +24,14 @@ let Game = {
       Utils.addClass(document.querySelector('div.loading'), 'hidden');
       Utils.removeClass(document.querySelector('div.info'), 'hidden');
     }
+    //console.log(Stage.sky.island.object)
+    if (Stage.island.object !== undefined) {
+      Stage.island.render();
+    }
+
+    //Stage.island.render();
+
+    //if (Stage.sky.island.object) Stage.sky.island.render();
 
     Stage.checkDay();
     Stage.checkVelocity();
@@ -46,6 +54,8 @@ let Game = {
       this.kokoro.counterColisioned++;
       
       if (this.kokoro.counterColisioned % this.kokoro.timeColisioned === 0 && this.kokoro.lives > 0) {
+        
+
         this.kokoro.isCollisioned = false;
         this.kokoro.counterColisioned = 0;
       }

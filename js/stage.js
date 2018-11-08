@@ -9,6 +9,8 @@ let Stage = {
   ground: null,
   sky: null,
 
+  island: null,
+
   numEnemies: 20,
   numLives: 5,
 
@@ -44,6 +46,9 @@ let Stage = {
 
     this.sky = new Sky(this.scene);
     this.sky.addToScene();
+
+
+    this.island = new Island(this.scene);
   },
 
   createScene: function() {
@@ -152,7 +157,7 @@ let Stage = {
 
   renderScenary: function() {
     //this.ground.mesh.rotation.z += this.velocity;
-    this.sky.mesh.rotation.z += .001;
+    this.sky.mesh.rotation.z += this.velocity;
   }, 
 
   updateDOMInfo: function() {

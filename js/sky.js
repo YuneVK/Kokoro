@@ -5,7 +5,8 @@ function Sky(scene){
 	// Create an empty container
   this.mesh = new THREE.Object3D();
   this.generateClouds();
-  this.mesh.position.y = -600;
+	this.mesh.position.y = -600;
+
 
   this.scene = scene;
 }
@@ -35,7 +36,7 @@ Sky.prototype.generateClouds = function() {
 
 		// for a better result, we position the clouds 
 		// at random depths inside of the scene
-		cloud.mesh.position.z = -400-Math.random()*400;
+		cloud.mesh.position.z = -300-Math.random()*250;
 		
 		// we also set a random scale for each cloud
 		var scale = 1+Math.random()*2;
@@ -48,4 +49,11 @@ Sky.prototype.generateClouds = function() {
 
 Sky.prototype.addToScene = function() {
   this.scene.add(this.mesh);
+}
+
+Sky.prototype.generateIsland = function() {
+	
+	//console.log(this.island.object)
+	this.mesh.add(this.island.object);
+	this.island.added = true;
 }
