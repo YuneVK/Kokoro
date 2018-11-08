@@ -13,9 +13,9 @@ let Stage = {
   numLives: 5,
 
   velocity: 0.005,
+  vInitial: 0.005,
   vIncrement: 0.001,
   vMax: 0.02,
-  //velocity: 0.005,
 
   mousePos: {x: 0, y: 0},
 
@@ -181,6 +181,7 @@ let Stage = {
   }, 
 
   showGameOverScreen: function() {
+    document.querySelector('div.replay p.score span').innerHTML = Math.floor(this.score);
     Utils.addClass(document.querySelector("div.replay"), "active");
   }, 
 
@@ -192,12 +193,12 @@ let Stage = {
     Game.kokoro.lives = Game.kokoro.maxLives;
     this.gameOver = false;
     this.score = 0;
+    this.velocity = this.vInitial;
   }, 
 
   checkVelocity: function() {
     this.scoreDOM = parseInt(document.querySelector('div.score span').innerHTML);
     if ((this.scoreDOM > 0) && (this.scoreDOM % 30 === 0) && (this.scoreDOM !== this.prevScoreDOM)) {
-      console.log("incremento");
       this.velocity += this.vIncrement;
       this.prevScoreDOM = this.scoreDOM;
     }

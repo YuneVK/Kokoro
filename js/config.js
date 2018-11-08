@@ -17,10 +17,10 @@ let GameConfig = {
     }, 
     clouds: new THREE.MeshBasicMaterial({color: 0xffffff,flatShading: true}),
     enemies: {
-      sphere: new THREE.MeshBasicMaterial({color: 0x950000,transparent: true,opacity: 0.5,needsUpdate: true}),
-      ball: new THREE.MeshBasicMaterial({color: 0xB80000})
+      sphere: new THREE.MeshBasicMaterial({color: 0x880E4F,transparent: true,opacity: 0.5,needsUpdate: true}),
+      ball: new THREE.MeshBasicMaterial({color: 0x880E4F})
     }, 
-    ground: new THREE.MeshBasicMaterial({color: 0x5B733B,transparent:true,opacity:1,flatShading:true,})
+    ground: new THREE.MeshBasicMaterial({color: 0xadd370,transparent:true,opacity:1,flatShading:true,})
   }, 
 
   geometries: {
