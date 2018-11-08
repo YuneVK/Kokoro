@@ -25,6 +25,7 @@ let Game = {
       Utils.removeClass(document.querySelector('div.info'), 'hidden');
     }
 
+    Stage.checkDay();
     Stage.checkVelocity();
     
     Stage.ground.move();

@@ -22,7 +22,8 @@ let Stage = {
   score: 0,
 
   scoreDOM: 0,
-  prevScoreDOM: 0,
+  prevScoreDOMVelocity: 0,
+  prevScoreDOMChangeDay: 0,
   
   gameOver: false,
 
@@ -48,6 +49,7 @@ let Stage = {
   createScene: function() {
     this.scene = new THREE.Scene();
     this.scene.fog = new THREE.Fog(0xE0FFFE, 100, 950);
+    //this.scene.fog = new THREE.Fog(0x212b48, 100, 950);
   }, 
 
   createCamera: function () {
@@ -175,6 +177,11 @@ let Stage = {
 
   clickReload: function() {
     if (this.gameOver) {
+      if (Utils.hasClass(document.querySelector('div.info'), 'dark')) {
+        Animations.toDay(this.scene);
+        Sounds.music.playbackRate = 1;
+        this.velocity -= 0.005;
+      }
 
       Game.reload();
     } 
@@ -194,13 +201,35 @@ let Stage = {
     this.gameOver = false;
     this.score = 0;
     this.velocity = this.vInitial;
+    this.prevScoreDOMVelocity = 0;
+    this.prevScoreDOMChangeDay = 0;
+
+    
   }, 
 
   checkVelocity: function() {
     this.scoreDOM = parseInt(document.querySelector('div.score span').innerHTML);
-    if ((this.scoreDOM > 0) && (this.scoreDOM % 30 === 0) && (this.scoreDOM !== this.prevScoreDOM)) {
+    if ((this.scoreDOM > 0) && (this.scoreDOM % 30 === 0) && (this.scoreDOM !== this.prevScoreDOMVelocity)) {
+      console.log("changeVel")
       this.velocity += this.vIncrement;
-      this.prevScoreDOM = this.scoreDOM;
+      this.prevScoreDOMVelocity = this.scoreDOM;
+    }
+  },
+
+  checkDay: function() {
+    this.scoreDOM = parseInt(document.querySelector('div.score span').innerHTML);
+    if ((this.scoreDOM > 0) && (this.scoreDOM % 100 === 0) && (this.scoreDOM !== this.prevScoreDOMChangeDay)) {
+      if (Utils.hasClass(document.querySelector('div.info'), 'dark')) {
+        Animations.toDay(this.scene);
+        Sounds.music.playbackRate = 1;
+        this.velocity -= 0.003;
+      } else {
+        Animations.toNight(this.scene);
+        Sounds.music.playbackRate = 2;
+        this.velocity += 0.003;
+      }
+      Sounds.changeDay.play();
+      this.prevScoreDOMChangeDay = this.scoreDOM;
     }
   }
 }

@@ -41,7 +41,7 @@ heartShape.bezierCurveTo( x + 7, y, x + 5, y + 5, x + 5, y + 5 );
 
 var geometryH = new THREE.ShapeGeometry( heartShape );
 var materialH = new THREE.MeshBasicMaterial( { color: 0xfe3500, side: THREE.DoubleSide } );
-var meshH = new THREE.Mesh( geometryH, materialH ) ;
+var meshH = new THREE.Mesh( geometryH, GameConfig.materials.lives ) ;
 
   this.mesh.add(meshH);
 }

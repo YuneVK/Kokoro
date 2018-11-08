@@ -1,20 +1,19 @@
 function Lights(scene) {
+  this.scene = scene;
+
   this.hemisphereLight = null;
   this.createHemisphereLight();
 
   this.shadowLight = null;
   this.createShadowLight();
-
-  this.scene = scene;
 }
 
 Lights.prototype.createHemisphereLight = function () {
   // A hemisphere light is a gradient colored light; 
   // the first parameter is the sky color, the second parameter is the ground color, 
   // the third parameter is the intensity of the light
-  //this.hemisphereLight = new THREE.HemisphereLight(0x272f3d,0xfefaed, .2);
-  //this.hemisphereLight = new THREE.AmbientLight(0x111122)
-
+  this.hemisphereLight = new THREE.HemisphereLight(0x272f3d,0xfefaed, .2);
+  this.hemisphereLight = new THREE.AmbientLight(0x111122)
 }
 
 Lights.prototype.createShadowLight = function () {
@@ -53,21 +52,19 @@ Lights.prototype.addToScene = function () {
   //this.scene.add(this.hemisphereLight);
   //this.scene.add(this.shadowLight);
 
+  // globalLight = new THREE.AmbientLight(0xffffff, .9);
 
-  globalLight = new THREE.AmbientLight(0xffffff, .9);
+  // shadowLight = new THREE.DirectionalLight(0xffffff, 1);
+  // shadowLight.position.set(-30, 40, 20);
+  // shadowLight.castShadow = true;
+  // shadowLight.shadow.camera.left = -400;
+  // shadowLight.shadow.camera.right = 400;
+  // shadowLight.shadow.camera.top = 400;
+  // shadowLight.shadow.camera.bottom = -400;
+  // shadowLight.shadow.camera.near = 1;
+  // shadowLight.shadow.camera.far = 2000;
+  // shadowLight.shadow.mapSize.width = shadowLight.shadow.mapSize.height = 2048;
 
-  shadowLight = new THREE.DirectionalLight(0xffffff, 1);
-  shadowLight.position.set(-30, 40, 20);
-  shadowLight.castShadow = true;
-  shadowLight.shadow.camera.left = -400;
-  shadowLight.shadow.camera.right = 400;
-  shadowLight.shadow.camera.top = 400;
-  shadowLight.shadow.camera.bottom = -400;
-  shadowLight.shadow.camera.near = 1;
-  shadowLight.shadow.camera.far = 2000;
-  shadowLight.shadow.mapSize.width = shadowLight.shadow.mapSize.height = 2048;
-
-  this.scene.add(globalLight);
-  this.scene.add(shadowLight);
-
+  this.scene.add(this.hemisphereLight);
+  this.scene.add(this.shadowLight);
 }

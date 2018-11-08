@@ -20,7 +20,8 @@ let GameConfig = {
       sphere: new THREE.MeshBasicMaterial({color: 0x880E4F,transparent: true,opacity: 0.5,needsUpdate: true}),
       ball: new THREE.MeshBasicMaterial({color: 0x880E4F})
     }, 
-    ground: new THREE.MeshBasicMaterial({color: 0xadd370,transparent:true,opacity:1,flatShading:true,})
+    ground: new THREE.MeshBasicMaterial({color: 0xadd370,transparent:true,opacity:1,flatShading:true,}), 
+    lives: new THREE.MeshBasicMaterial( { color: 0xfe3500, side: THREE.DoubleSide } )
   }, 
 
   geometries: {

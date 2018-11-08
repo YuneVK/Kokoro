@@ -4,6 +4,7 @@ let Sounds = {
   death: new Audio(), 
   live: new Audio(), 
   reload: new Audio(),
+  changeDay: new Audio(),
 
   init: function() {
     this.music.src = "../audio/music.mp3";
@@ -14,5 +15,6 @@ let Sounds = {
     this.death.src = "../audio/death.wav";
     this.live.src = "../audio/live.mp3";
     this.reload.src = "../audio/reload.wav";
+    this.changeDay.src = "../audio/changeday.wav"
   }
 }

@@ -7,6 +7,7 @@ html, body {
 
 body {
 	font-family: 'Roboto', sans-serif;
+	color: #212121;
 }
 
 h1 {
@@ -33,7 +34,6 @@ h2 {
 	width: 100%;
 	height: 100%;
 	overflow: hidden;
-	background: linear-gradient(#7B9CE7, #E0FFFE);
 	cursor: none;
 }
 
@@ -48,6 +48,14 @@ div.info {
 	text-align: center;
 }
 
+div.info.dark {
+	color: #fafafa;
+}
+
+div.info.dark span.life {
+	background-image: url(../img/heart-white.svg);
+}
+
 div.info .content {
 	display: flex;
 	justify-content: space-around;
@@ -58,7 +66,7 @@ div.info .content > div {
 }
 
 div.info p {
-	color: #212121;
+	
 	text-transform: uppercase;
 	letter-spacing: .025rem;
 	font-weight: 600;
@@ -71,7 +79,6 @@ div.info .score span {
 	font-size: 2rem;
 	font-weight: 600;
 	letter-spacing: .05rem;
-	color: #212121
 }
 
 div.replay {
@@ -155,4 +162,45 @@ div.loading p.loading {
 	font-weight: 600;
 	opacity: .7;
 	margin-top: .5rem;
+}
+
+.day.hidden, .night.hidden {
+	visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 2s, opacity 2s linear;
+}
+
+.day.visible, .night.visible {
+	visibility: visible;
+	opacity: 1;
+	transition: opacity 2s linear;
+}
+
+.night {
+	opacity: 0;
+}
+
+.fadeOut {
+	visibility: hidden;
+	opacity: 0;
+	transition: visibility 0s linear 300ms, opacity 300ms;
+}
+.fadeIn {
+	visibility: visible;
+	opacity: 1;
+	transition: visibility 0s linear 0s, opacity 300ms;
+}
+
+div.day {
+	background: linear-gradient(#7B9CE7, #E0FFFE);
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
+}
+
+div.night {
+	background: linear-gradient(#212b48, #4768a8);
+	position: absolute;
+	width: 100vw;
+	height: 100vh;
 }

@@ -9,6 +9,7 @@ function Enemy3D() {
 
 Enemy3D.prototype.generateModel = function() {
   var materialSphere = GameConfig.materials.enemies.sphere.clone();
+  materialSphere.needsUpdate = true;
 
   var ringTopAux = new THREE.Mesh(GameConfig.geometries.enemies.sphere.medium, materialSphere);
   ringTopAux.material.side = THREE.DoubleSide;
