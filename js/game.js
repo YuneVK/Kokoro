@@ -24,7 +24,6 @@ let Game = {
       Utils.addClass(document.querySelector('div.loading'), 'hidden');
       Utils.removeClass(document.querySelector('div.info'), 'hidden');
     }
-    //console.log(Stage.sky.island.object)
     if (Stage.island.object !== undefined) {
       Stage.island.render();
     }

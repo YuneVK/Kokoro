@@ -215,7 +215,6 @@ let Stage = {
   checkVelocity: function() {
     this.scoreDOM = parseInt(document.querySelector('div.score span').innerHTML);
     if ((this.scoreDOM > 0) && (this.scoreDOM % 30 === 0) && (this.scoreDOM !== this.prevScoreDOMVelocity)) {
-      console.log("changeVel")
       this.velocity += this.vIncrement;
       this.prevScoreDOMVelocity = this.scoreDOM;
     }

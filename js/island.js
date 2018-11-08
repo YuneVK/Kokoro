@@ -4,14 +4,13 @@ function Island(scene) {
   this.added = false;
 
   this.scene = scene;
-  console.log(scene)
 
   var onProgress = function ( xhr ) {
 
     if ( xhr.lengthComputable ) {
 
       var percentComplete = xhr.loaded / xhr.total * 100;
-      console.log( Math.round( percentComplete, 2 ) + '% downloaded' );
+      //console.log( Math.round( percentComplete, 2 ) + '% downloaded' );
 
     }
 

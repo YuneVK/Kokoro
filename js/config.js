@@ -1,21 +1,24 @@
+let Colors = {
+  blue: 0x68c3c0,
+  bgBlue: 0x68c0e9,
+  bgDarkBlue: 0x2673ad, 
+  black: 0x212121, 
+  white: 0xfefaed, 
+  purple: 0x880E4F
+};
+
 let GameConfig = {
-  colors: {
-    blue: 0x68c3c0,
-    bgBlue: 0x68c0e9,
-    bgDarkBlue: 0x2673ad, 
-    black: 0x212121
-  },
-  
+
   materials: {
     kokoro: {
-      body: new THREE.MeshBasicMaterial({color: 0x212121, shading:THREE.FlatShading }), 
-      wings: new THREE.MeshBasicMaterial({color: 0x212121, side: THREE.DoubleSide}), 
+      body: new THREE.MeshBasicMaterial({color: Colors.black, shading:THREE.FlatShading }), 
+      wings: new THREE.MeshBasicMaterial({color: Colors.black, side: THREE.DoubleSide}), 
       eyes: {
-        iris: new THREE.MeshBasicMaterial({color: 0xfefaed, side: THREE.DoubleSide}),
-        pupile: new THREE.MeshBasicMaterial({color: 0x212121, side: THREE.DoubleSide})
+        iris: new THREE.MeshBasicMaterial({color: Colors.white, side: THREE.DoubleSide}),
+        pupile: new THREE.MeshBasicMaterial({color: Colors.black, side: THREE.DoubleSide})
       }
     }, 
-    clouds: new THREE.MeshBasicMaterial({color: 0xffffff,flatShading: true}),
+    clouds: new THREE.MeshBasicMaterial({color: Colors.white,flatShading: true}),
     enemies: {
       sphere: new THREE.MeshBasicMaterial({color: 0x880E4F,transparent: true,opacity: 0.5,needsUpdate: true}),
       ball: new THREE.MeshBasicMaterial({color: 0x880E4F})

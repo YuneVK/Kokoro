@@ -52,8 +52,6 @@ Sky.prototype.addToScene = function() {
 }
 
 Sky.prototype.generateIsland = function() {
-	
-	//console.log(this.island.object)
 	this.mesh.add(this.island.object);
 	this.island.added = true;
 }
