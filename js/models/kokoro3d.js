@@ -8,8 +8,7 @@ Kokoro3D.prototype.generateModel = function () {
   var groupHead = new THREE.Object3D();
 
   var beak = new THREE.Mesh(GameConfig.geometries.kokoro.beak, GameConfig.materials.kokoro.body);
-  beak.position.y = 100;
-  beak.position.x = 30;
+  beak.position.set(30, 100, 0);
   beak.rotation.z = THREE.Math.degToRad(-30);
   groupHead.add(beak);
 
@@ -20,56 +19,50 @@ Kokoro3D.prototype.generateModel = function () {
   head.rotation.x = Math.PI / 2;
   groupHead.add(head);
 
-  var eye1 = new THREE.Mesh(GameConfig.geometries.kokoro.eyes.iris, GameConfig.materials.kokoro.eyes.iris);
-  eye1.position.z = 26;
-  eye1.position.y = 50;
-  groupHead.add(eye1);
+  var eyeLeft = new THREE.Mesh(GameConfig.geometries.kokoro.eyes.iris, GameConfig.materials.kokoro.eyes.iris);
+  eyeLeft.position.set(0,50,26);
+  groupHead.add(eyeLeft);
 
-  var eye2 = new THREE.Mesh(GameConfig.geometries.kokoro.eyes.iris, GameConfig.materials.kokoro.eyes.iris);
-  eye2.position.z = -26;
-  eye2.position.y = 50;
-  groupHead.add(eye2);
+  var eyeRight = new THREE.Mesh(GameConfig.geometries.kokoro.eyes.iris, GameConfig.materials.kokoro.eyes.iris);
+  eyeRight.position.set(0,50,-26);
+  groupHead.add(eyeRight);
 
-  var pupile1 = new THREE.Mesh(GameConfig.geometries.kokoro.eyes.pupiles.normal, GameConfig.materials.kokoro.eyes.pupile);
-  pupile1.position.z = 27;
-  pupile1.position.y = 50;
+  var pupileLeft = new THREE.Mesh(GameConfig.geometries.kokoro.eyes.pupiles.normal, GameConfig.materials.kokoro.eyes.pupile);
+  pupileLeft.position.set(0,50,27);
 
-  var pupile2 = new THREE.Mesh(GameConfig.geometries.kokoro.eyes.pupiles.normal, GameConfig.materials.kokoro.eyes.pupile);
-  pupile2.position.z = -27;
-  pupile2.position.y = 50;
+  var pupileRight = new THREE.Mesh(GameConfig.geometries.kokoro.eyes.pupiles.normal, GameConfig.materials.kokoro.eyes.pupile);
+  pupileRight.position.set(0,50,-27);
 
-  this.eyesNormal.add(pupile1);
-  this.eyesNormal.add(pupile2);
+  this.eyesNormal.add(pupileLeft);
+  this.eyesNormal.add(pupileRight);
 
   groupHead.add(this.eyesNormal);
   
-  var crossPupile1 = new THREE.Mesh(GameConfig.geometries.kokoro.eyes.pupiles.crossed, GameConfig.materials.kokoro.eyes.pupile);
-  crossPupile1.position.z = 27;
-  crossPupile1.position.y = 50;
-  crossPupile1.rotation.z = THREE.Math.degToRad(210);
+  var pupileLeftCrossed = new THREE.Mesh(GameConfig.geometries.kokoro.eyes.pupiles.crossed, GameConfig.materials.kokoro.eyes.pupile);
+  pupileLeftCrossed.position.set(0,50,27);
+  pupileLeftCrossed.rotation.z = THREE.Math.degToRad(210);
   
-  var crossPupile1Copy = crossPupile1.clone();
-  crossPupile1Copy.rotation.z = THREE.Math.degToRad(310);
+  var pupileLeftCrossedCopy = pupileLeftCrossed.clone();
+  pupileLeftCrossedCopy.rotation.z = THREE.Math.degToRad(310);
   
-  var pupile1Crossed = new THREE.Object3D();
-  pupile1Crossed.add(crossPupile1);
-  pupile1Crossed.add(crossPupile1Copy);
+  var eyeLeftCrossed = new THREE.Object3D();
+  eyeLeftCrossed.add(pupileLeftCrossed);
+  eyeLeftCrossed.add(pupileLeftCrossedCopy);
 
-  this.eyesCrossed.add(pupile1Crossed);
+  this.eyesCrossed.add(eyeLeftCrossed);
   
-  var crossPupile2 = new THREE.Mesh(GameConfig.geometries.kokoro.eyes.pupiles.crossed, GameConfig.materials.kokoro.eyes.pupile);
-  crossPupile2.position.z = -27;
-  crossPupile2.position.y = 50;
-  crossPupile2.rotation.z = THREE.Math.degToRad(210);
+  var pupileRightCrossed = new THREE.Mesh(GameConfig.geometries.kokoro.eyes.pupiles.crossed, GameConfig.materials.kokoro.eyes.pupile);
+  pupileRightCrossed.position.set(0,50,-27);
+  pupileRightCrossed.rotation.z = THREE.Math.degToRad(210);
   
-  var crossPupile2Copy = crossPupile1.clone();
-  crossPupile2Copy.rotation.z = THREE.Math.degToRad(310);
+  var pupileRightCrossedCopy = pupileLeftCrossed.clone();
+  pupileRightCrossedCopy.rotation.z = THREE.Math.degToRad(310);
   
-  var pupile2Crossed = new THREE.Object3D();
-  pupile2Crossed.add(crossPupile2);
-  pupile2Crossed.add(crossPupile2Copy);
+  var eyeRightCrossed = new THREE.Object3D();
+  eyeRightCrossed.add(pupileRightCrossed);
+  eyeRightCrossed.add(pupileRightCrossedCopy);
 
-  this.eyesCrossed.add(pupile2Crossed);
+  this.eyesCrossed.add(eyeRightCrossed);
 
   groupHead.add(this.eyesCrossed);
 
@@ -81,34 +74,26 @@ Kokoro3D.prototype.generateModel = function () {
   neck.castShadow = true;
   neck.receiveShadow = true;
   neck.rotation.z = this.initialRotationZ;
-  neck.position.x = 10;
-  neck.position.y = 10;
+  neck.position.set(10,10,0);
   groupBody.add(neck);
 
   var body = new THREE.Mesh(GameConfig.geometries.kokoro.body, GameConfig.materials.kokoro.body);
   body.castShadow = true;
   body.receiveShadow = true;
   body.rotation.z = THREE.Math.degToRad(25);
-  body.position.y = -45;
-  body.position.x = 35;
+  body.position.set(35,-45,0);
   groupBody.add(body);
 
   this.mesh.add(groupBody);
 
   wing1 = new THREE.Mesh(GameConfig.geometries.kokoro.wings, GameConfig.materials.kokoro.wings);
-  wing1.position.x = 10;
-  wing1.position.y = -10;
-  wing1.rotation.y = THREE.Math.degToRad(100);
-  wing1.rotation.x = THREE.Math.degToRad(180);
-  wing1.rotation.z = THREE.Math.degToRad(20);
+  wing1.position.set(10,-10,0);
+  wing1.rotation.set(THREE.Math.degToRad(180), THREE.Math.degToRad(100), THREE.Math.degToRad(20));
   this.mesh.add(wing1);
 
   wing2 = new THREE.Mesh(GameConfig.geometries.kokoro.wings, GameConfig.materials.kokoro.wings);
-  wing2.position.x = 10;
-  wing2.position.y = -10;
-  wing2.rotation.y = THREE.Math.degToRad(270);
-  wing2.rotation.x = THREE.Math.degToRad(180);
-  wing2.rotation.z = THREE.Math.degToRad(20);
+  wing2.position.set(10,-10,0);
+  wing2.rotation.set(THREE.Math.degToRad(180), THREE.Math.degToRad(270), THREE.Math.degToRad(20));
   this.mesh.add(wing2);
 
   this.mesh.rotation.z = THREE.Math.degToRad(280);

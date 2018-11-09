@@ -1,7 +1,5 @@
 let Colors = {
   blue: 0x68c3c0,
-  bgBlue: 0x68c0e9,
-  bgDarkBlue: 0x2673ad, 
   black: 0x212121, 
   white: 0xfefaed, 
   purple: 0x880E4F,
