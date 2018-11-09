@@ -21,14 +21,14 @@ function Island(scene) {
   THREE.Loader.Handlers.add( /\.dds$/i, new THREE.DDSLoader() );
 
   new THREE.MTLLoader()
-    .setPath( '../models/' )
+    .setPath( './models/' )
     .load( 'low-poly-mill.mtl', function ( materials ) {
 
       materials.preload();
 
       new THREE.OBJLoader()
         .setMaterials( materials )
-        .setPath( '../models/' )
+        .setPath( './models/' )
         .load( 'low-poly-mill.obj', function ( object ) {
 
 
