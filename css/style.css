@@ -144,7 +144,7 @@ div.hidden {
 	display: none !important;
 }
 
-div.loading {
+div.loading, div.start {
 	position: absolute;
 	display: flex;
 	flex-direction: column;
@@ -157,7 +157,7 @@ div.loading {
 	color: #212121
 }
 
-div.loading p.loading {
+div.loading p.loading, div.start p.loading {
 	text-transform: uppercase;
 	font-weight: 600;
 	opacity: .7;

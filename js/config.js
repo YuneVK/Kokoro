@@ -4,11 +4,12 @@ let Colors = {
   bgDarkBlue: 0x2673ad, 
   black: 0x212121, 
   white: 0xfefaed, 
-  purple: 0x880E4F
+  purple: 0x880E4F,
+  green: 0xadd370,
+  red: 0xfe3500
 };
 
 let GameConfig = {
-
   materials: {
     kokoro: {
       body: new THREE.MeshBasicMaterial({color: Colors.black, shading:THREE.FlatShading }), 
@@ -20,11 +21,11 @@ let GameConfig = {
     }, 
     clouds: new THREE.MeshBasicMaterial({color: Colors.white,flatShading: true}),
     enemies: {
-      sphere: new THREE.MeshBasicMaterial({color: 0x880E4F,transparent: true,opacity: 0.5,needsUpdate: true}),
-      ball: new THREE.MeshBasicMaterial({color: 0x880E4F})
+      sphere: new THREE.MeshBasicMaterial({color: Colors.purple,transparent: true,opacity: 0.5,needsUpdate: true}),
+      ball: new THREE.MeshBasicMaterial({color: Colors.purple})
     }, 
-    ground: new THREE.MeshBasicMaterial({color: 0xadd370,transparent:true,opacity:1,flatShading:true,}), 
-    lives: new THREE.MeshBasicMaterial( { color: 0xfe3500, side: THREE.DoubleSide } )
+    ground: new THREE.MeshBasicMaterial({color: Colors.green,transparent:true,opacity:1,flatShading:true,}), 
+    lives: new THREE.MeshBasicMaterial( { color: Colors.red, side: THREE.DoubleSide } )
   }, 
 
   geometries: {

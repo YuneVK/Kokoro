@@ -118,6 +118,7 @@ let Stage = {
   }, 
 
   mouseMove: function (event) {
+    
     if (Game.kokoro.lives > 0) {
       var directionX = -1 + (event.clientX / this.WIDTH) * 2;
       var directionY = 1 - (event.clientY / this.HEIGHT) * 2;
@@ -189,7 +190,7 @@ let Stage = {
       }
 
       Game.reload();
-    } 
+    }
   }, 
 
   showGameOverScreen: function() {

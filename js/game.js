@@ -24,13 +24,11 @@ let Game = {
       Utils.addClass(document.querySelector('div.loading'), 'hidden');
       Utils.removeClass(document.querySelector('div.info'), 'hidden');
     }
+      
+
     if (Stage.island.object !== undefined) {
       Stage.island.render();
     }
-
-    //Stage.island.render();
-
-    //if (Stage.sky.island.object) Stage.sky.island.render();
 
     Stage.checkDay();
     Stage.checkVelocity();
@@ -141,5 +139,4 @@ let Game = {
 
     this.render();
   }, 
-
 }
