@@ -152,9 +152,10 @@ div.loading, div.start {
 	justify-content: center;
 	z-index: 99;
 	width: 100vw;
-	height: 90vh;
+	height: 100vh;
 	text-align: center;
-	color: #212121
+	color: #212121;
+	background: linear-gradient(rgba(123,156,321,.7), rgba(224,225,254,.7));
 }
 
 div.loading p.loading, div.start p.loading {

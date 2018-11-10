@@ -28,6 +28,7 @@ let Stage = {
   prevScoreDOMChangeDay: 0,
   
   gameOver: false,
+  started: false,
 
   createScenary: function() {
     this.createScene();
@@ -188,8 +189,12 @@ let Stage = {
         Sounds.music.playbackRate = 1;
         this.velocity -= 0.005;
       }
-
       Game.reload();
+    } else if (!this.started) {
+      this.started = true;
+      Utils.addClass(document.querySelector('div.start'), 'hidden');
+      Sounds.music.play();
+      Game.render();
     }
   }, 
 

@@ -8,7 +8,7 @@ let Game = {
     Stage.setListeners();
 
     Sounds.init();
-    Sounds.music.play();
+    
 
     this.kokoro = new Kokoro(Stage.scene);
     this.kokoro.addToScene();
@@ -16,16 +16,18 @@ let Game = {
     this.enemies = Stage.generateEnemies();
     this.lives = Stage.generateLives();
 
-    this.render();
+    this.load();
   }, 
 
-  render: function() {
-    if (Stage.score === 0.1) {
-      Utils.addClass(document.querySelector('div.loading'), 'hidden');
-      Utils.removeClass(document.querySelector('div.info'), 'hidden');
-    }
-      
+  load: function() {
+    Stage.renderScenary();
+    Stage.renderer.render(Stage.scene, Stage.camera);
+    Utils.addClass(document.querySelector('div.loading'), 'hidden');
+    Utils.removeClass(document.querySelector('div.start'), 'hidden');
+    Utils.removeClass(document.querySelector('div.info'), 'hidden');
+  },
 
+  render: function() {
     if (Stage.island.object !== undefined) {
       Stage.island.render();
     }
@@ -34,7 +36,7 @@ let Game = {
     Stage.checkVelocity();
     
     Stage.ground.move();
-    
+
     this.kokoro.render();
     
     this.enemies.forEach(function (enemy) {
@@ -44,7 +46,7 @@ let Game = {
     this.lives.forEach(function (live) {
       live.draw();
     }.bind(this));
-    
+        
     Stage.renderScenary();
     
     if (this.kokoro.isCollisioned) {
@@ -68,7 +70,7 @@ let Game = {
     Stage.renderer.render(Stage.scene, Stage.camera);
     
     if (this.kokoro.lives > 0) {
-      requestAnimationFrame(this.render.bind(this));
+        requestAnimationFrame(this.render.bind(this));
     } else {
       Stage.gameOver = true;
       Stage.showGameOverScreen();

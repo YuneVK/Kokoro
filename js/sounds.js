@@ -9,7 +9,6 @@ let Sounds = {
   init: function() {
     this.music.src = "./audio/music.mp3";
     this.music.loop = true;
-    this.music.autoplay = true;
 
     this.collision.src = "./audio/collision.wav";
     this.death.src = "./audio/death.wav";
